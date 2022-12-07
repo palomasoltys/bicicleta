@@ -1,5 +1,6 @@
 package com.ecommerce.bicicleta.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -32,10 +34,11 @@ public class User implements Serializable {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private Set<Address> addressSet = new HashSet<>();
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+//    @JsonManagedReference
+//    private Set<Address> addressSet = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<Order> orderSet = new HashSet<>();
@@ -48,6 +51,10 @@ public class User implements Serializable {
         this.email = email;
         this.password = password;
         this.name = name;
+    }
+
+    public Set<Order> getOrders() {
+        return orderSet;
     }
 
     @Override
