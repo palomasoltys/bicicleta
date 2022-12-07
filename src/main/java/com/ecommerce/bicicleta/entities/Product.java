@@ -31,13 +31,13 @@ public class Product {
     private String category;
 
     @Column
-    private double unitPrice;
+    private Double unitPrice;
 
     @Column
     private String imgUrl;
 
     @Column
-    private int unitsInStock;
+    private Integer unitsInStock;
 
     @Column
     @CreatedDate

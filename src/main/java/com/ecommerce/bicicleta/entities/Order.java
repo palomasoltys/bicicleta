@@ -26,10 +26,10 @@ public class Order {
     private String orderTrackingNumber;
 
     @Column
-    private int totalQuantity;
+    private Integer totalQuantity;
 
     @Column
-    private double totalPrice;
+    private Double totalPrice;
 
     @Column
     private String status;

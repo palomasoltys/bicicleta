@@ -27,7 +27,7 @@ public class Address {
     private String state;
 
     @Column
-    private int zipcode;
+    private Integer zipcode;
 
     @Column
     private String country;
