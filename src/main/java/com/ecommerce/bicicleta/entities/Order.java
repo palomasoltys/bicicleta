@@ -13,7 +13,9 @@ import org.springframework.data.annotation.CreatedDate;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -56,6 +58,9 @@ public class Order implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(mappedBy = "id.order", fetch = FetchType.LAZY)
+    private Set<OrderItem> items = new HashSet<>();
+
     public Order(Long id, Instant dateCreated, OrderStatus orderStatus, User user) {
         this.id = id;
         this.dateCreated = dateCreated;
@@ -72,6 +77,11 @@ public class Order implements Serializable {
             this.orderStatus = orderStatus.getCode();
         }
     }
+
+    public Set<OrderItem> getItems() {
+        return items;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

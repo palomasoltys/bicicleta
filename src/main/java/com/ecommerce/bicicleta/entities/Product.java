@@ -35,7 +35,7 @@ public class Product implements Serializable {
     private String category;
 
     @Column
-    private Double unitPrice;
+    private Double price;
 
     @Column
     private String imgUrl;
@@ -50,6 +50,8 @@ public class Product implements Serializable {
     @Column
     @LastModifiedDate
     private Instant lastUpdated;
+
+
 
     @Override
     public boolean equals(Object o) {
