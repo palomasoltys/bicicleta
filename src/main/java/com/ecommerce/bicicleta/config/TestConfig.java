@@ -1,9 +1,6 @@
 package com.ecommerce.bicicleta.config;
 
-import com.ecommerce.bicicleta.entities.Order;
-import com.ecommerce.bicicleta.entities.OrderItem;
-import com.ecommerce.bicicleta.entities.Product;
-import com.ecommerce.bicicleta.entities.User;
+import com.ecommerce.bicicleta.entities.*;
 import com.ecommerce.bicicleta.entities.enums.OrderStatus;
 import com.ecommerce.bicicleta.repositories.OrderItemRepository;
 import com.ecommerce.bicicleta.repositories.OrderRepository;
@@ -36,12 +33,6 @@ public class TestConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        User u1 = new User(null, "paloma@gmail.com", "123456", "Paloma");
-        User u2 = new User(null, "nick@gmail.com", "654321", "Nick");
-
-        Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), OrderStatus.PAID, u1);
-        Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.WAITING_PAYMENT, u2);
-        Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.WAITING_PAYMENT, u1);
 
         Product p1 = new Product(null, "2022 Polygon Xtrada 5 Hardtail Mountain Bike",
                 "ALX CX Sport 6061 Aluminum Frame, Modern XC Geometry, Suntour XCM, 120mm Travel Fork, Shimano Deore M4100 2x10 Speed, Tektro Hydraulic Disc Brakes",
@@ -57,6 +48,14 @@ public class TestConfig implements CommandLineRunner {
                 6, Instant.parse("2022-12-02T01:21:22Z"), Instant.parse("2022-12-02T01:21:22Z"));
 
         productRepository.saveAll(Arrays.asList(p1, p2, p3));
+
+        User u1 = new User(null, "paloma@gmail.com", "123456", "Paloma");
+        User u2 = new User(null, "nick@gmail.com", "654321", "Nick");
+
+        Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), OrderStatus.PAID, u1);
+        Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.WAITING_PAYMENT, u2);
+        Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.WAITING_PAYMENT, u1);
+
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 
@@ -66,6 +65,11 @@ public class TestConfig implements CommandLineRunner {
         OrderItem oi4 = new OrderItem(o3, p2, 2, p2.getPrice());
 
         orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+
+        Payment pay1 = new Payment(null,Instant.parse("2019-06-20T21:53:07Z"),o1);
+        o1.setPayment(pay1);
+
+        orderRepository.save(o1);
 
     }
 }

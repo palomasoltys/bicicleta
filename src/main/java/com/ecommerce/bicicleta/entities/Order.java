@@ -41,12 +41,16 @@ public class Order implements Serializable {
 
 
     @ManyToOne
-    @JsonBackReference
+    @JsonIgnore
+//    @JsonBackReference
     @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
 
     public Order(Long id, Instant dateCreated, OrderStatus orderStatus, User user) {
         this.id = id;
@@ -74,9 +78,18 @@ public class Order implements Serializable {
         this.user = user;
     }
 
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
     public Set<OrderItem> getItems() {
         return items;
     }
+
 
     @Override
     public boolean equals(Object o) {

@@ -28,32 +28,24 @@ public class Product implements Serializable {
 
     @Column
     private String name;
-
     @Column
     private String description;
-
     @Column
     private String category;
-
     @Column
     private Double price;
-
     @Column
     private String imgUrl;
-
     @Column
     private Integer unitsInStock;
-
     @Column
     @CreatedDate
     private Instant dateCreated;
-
     @Column
     @LastModifiedDate
     private Instant lastUpdated;
-
     @OneToMany(mappedBy = "id.product")
-//    @JsonIgnore
+    @JsonIgnore
     private Set<OrderItem> items = new HashSet<>();
 
 
@@ -73,6 +65,7 @@ public class Product implements Serializable {
     }
 
 
+    @JsonIgnore
     public Set<Order> getOrders() {
         Set<Order> set = new HashSet<>();
         for(OrderItem x : items) {

@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -38,10 +35,10 @@ public class User implements Serializable {
 //    @JsonManagedReference
 //    private Set<Address> addressSet = new HashSet<>();
 
-//    @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    @JsonManagedReference
-    private Set<Order> orderSet = new HashSet<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+//    @JsonManagedReference
+    private List<Order> orderList = new ArrayList<>();
 
     public User() {
     }
@@ -53,8 +50,8 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public Set<Order> getOrders() {
-        return orderSet;
+    public List<Order> getOrders() {
+        return orderList;
     }
 
     @Override
