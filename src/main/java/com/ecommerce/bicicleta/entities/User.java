@@ -38,8 +38,8 @@ public class User implements Serializable {
 //    @JsonManagedReference
 //    private Set<Address> addressSet = new HashSet<>();
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+//    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     @JsonManagedReference
     private Set<Order> orderSet = new HashSet<>();
 

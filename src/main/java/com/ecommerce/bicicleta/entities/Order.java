@@ -31,15 +31,6 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column(unique = true)
-//    private String orderTrackingNumber;
-
-//    @Column
-//    private Integer totalQuantity;
-//
-//    @Column
-//    private Double totalPrice;
-
     @Column
     @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
@@ -48,17 +39,13 @@ public class Order implements Serializable {
     @Column
     private Integer orderStatus;
 
-//    @Column
-//    @LastModifiedDate
-//    private Instant lastUpdated;
-
 
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "id.order", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
 
     public Order(Long id, Instant dateCreated, OrderStatus orderStatus, User user) {
@@ -76,6 +63,15 @@ public class Order implements Serializable {
         if(orderStatus != null) {
             this.orderStatus = orderStatus.getCode();
         }
+    }
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Set<OrderItem> getItems() {

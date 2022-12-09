@@ -1,5 +1,6 @@
 package com.ecommerce.bicicleta.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,13 +11,13 @@ import org.springframework.data.annotation.LastModifiedDate;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Product implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -51,7 +52,34 @@ public class Product implements Serializable {
     @LastModifiedDate
     private Instant lastUpdated;
 
+    @OneToMany(mappedBy = "id.product")
+//    @JsonIgnore
+    private Set<OrderItem> items = new HashSet<>();
 
+
+    public Product(Long id, String name, String description, String category, Double price, String imgUrl, Integer unitsInStock, Instant dateCreated, Instant lastUpdated) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.price = price;
+        this.imgUrl = imgUrl;
+        this.unitsInStock = unitsInStock;
+        this.dateCreated = dateCreated;
+        this.lastUpdated = lastUpdated;
+    }
+
+    public Product() {
+    }
+
+
+    public Set<Order> getOrders() {
+        Set<Order> set = new HashSet<>();
+        for(OrderItem x : items) {
+            set.add(x.getOrder());
+        }
+        return set;
+    }
 
     @Override
     public boolean equals(Object o) {
