@@ -2,6 +2,7 @@ package com.ecommerce.bicicleta.services;
 
 import com.ecommerce.bicicleta.entities.User;
 import com.ecommerce.bicicleta.repositories.UserRepository;
+import com.ecommerce.bicicleta.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class UserService {
 
     public User findById(Long id) {
         Optional<User> obj = userRepository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
     public User insert(User obj) {
         return userRepository.save(obj);
