@@ -1,5 +1,6 @@
 package com.ecommerce.bicicleta.resources;
 
+import com.ecommerce.bicicleta.dtos.OrderDto;
 import com.ecommerce.bicicleta.entities.Order;
 import com.ecommerce.bicicleta.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class OrderResource {
     public ResponseEntity<Order> findById(@PathVariable Long id) {
         Order obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<OrderDto> getOrdersByUserId(@PathVariable long userId) {
+        return service.findAllOrdersByUserId(userId);
     }
 
 }
