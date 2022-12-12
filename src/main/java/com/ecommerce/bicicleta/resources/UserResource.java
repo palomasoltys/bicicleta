@@ -1,9 +1,11 @@
 package com.ecommerce.bicicleta.resources;
 
+import com.ecommerce.bicicleta.dtos.UserDto;
 import com.ecommerce.bicicleta.entities.User;
 import com.ecommerce.bicicleta.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -16,6 +18,21 @@ public class UserResource {
 
     @Autowired
     private UserService service;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @PostMapping("/register")
+    public List<String> addUser(@RequestBody UserDto userDto){
+        String passHash = passwordEncoder.encode(userDto.getPassword());
+        userDto.setPassword(passHash);
+        return service.addUser(userDto);
+    }
+
+    @PostMapping("/login")
+    public List<String> userLogin(@RequestBody UserDto userDto){
+        return service.userLogin(userDto);
+    }
 
     @GetMapping
     public ResponseEntity<List<User>> findAll() {

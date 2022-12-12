@@ -1,5 +1,6 @@
 package com.ecommerce.bicicleta.entities;
 
+import com.ecommerce.bicicleta.dtos.UserDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -31,10 +32,6 @@ public class User implements Serializable {
     @Column
     private String name;
 
-//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-//    @JsonManagedReference
-//    private Set<Address> addressSet = new HashSet<>();
-
     @JsonIgnore
     @OneToMany(mappedBy = "user")
 //    @JsonManagedReference
@@ -48,6 +45,15 @@ public class User implements Serializable {
         this.email = email;
         this.password = password;
         this.name = name;
+    }
+
+    public User(UserDto userDto) {
+        if(userDto.getEmail() != null) {
+            this.email = userDto.getEmail();
+        }
+        if(userDto.getPassword() != null) {
+            this.password = userDto.getPassword();
+        }
     }
 
     public List<Order> getOrders() {
