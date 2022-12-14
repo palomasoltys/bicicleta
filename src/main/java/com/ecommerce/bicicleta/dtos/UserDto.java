@@ -21,6 +21,7 @@ public class UserDto implements Serializable {
     private String name;
     private List<Order> orderDtoList = new ArrayList<>();
 
+
     public UserDto(User user) {
         if(user.getId() != null) {
             this.id = user.getId();

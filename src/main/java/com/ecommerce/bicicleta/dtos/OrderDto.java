@@ -22,7 +22,7 @@ public class OrderDto implements Serializable {
     private Integer orderStatus;
     private UserDto userDto;
     private Set<OrderItem> items = new HashSet<>(); // Order Item needs a DTO?
-    private Payment payment; // Payment needs a DTO?
+    private PaymentDto paymentDto; // Payment needs a DTO?
 
     public OrderDto(Order order) {
         if(order.getId() != null) {
@@ -31,7 +31,21 @@ public class OrderDto implements Serializable {
         if(order.getDateCreated() != null) {
             this.dateCreated = order.getDateCreated();
         }
-        // Do I need to do this with all private fields?
+//        if(order.getOrderStatus() != null) {
+//            this.orderStatus = order.getOrderStatus();
+//        }
+//        if(order.getUser() != null) {
+//            System.out.println("----------------------------------------------");
+//            System.out.println(order.getUser().toString());
+//            System.out.println("----------------------------------------------");
+//
+//            UserDto user = new UserDto(order.getUser());
+//            this.userDto = user;
+//        }
+//        if(order.getPayment() != null) {
+//            PaymentDto payment = new PaymentDto(order.getPayment());
+//            this.paymentDto = payment;
+//        }
     }
 
 
