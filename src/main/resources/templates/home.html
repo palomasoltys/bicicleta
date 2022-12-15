@@ -17,9 +17,9 @@
         <a href="/register">Sign In</a>
     </div>
     <div>
-        <a href="/products/mountain-bike">Mountain Bike</a>
-        <a href="/products/gravel-bike">Gravel Bike</a>
-        <a href="/products/ebike">E-Bike</a>
+        <a href="/products/category/mountain-bike">Mountain Bike</a>
+        <a href="/products/category/gravel-bike">Gravel Bike</a>
+        <a href="/products/category/ebike">E-Bike</a>
     </div>
     <div>
         <a href="/orders/userId">Your Cart</a>
@@ -37,8 +37,7 @@
             <p><td th:text="${product.name}" /></p>
             <img th:src="${product.imgUrl}" width="400" height="300" >
             <p>$<td th:text="${product.price}" /></p>
-            <a th:href="@{/product/${product.id}}">See more</a>
-            <button>Add to the Cart</button>
+            <a th:href="@{/products/{id}(id=${product.id})}">See more</a>
     </div>
         </tr>
 

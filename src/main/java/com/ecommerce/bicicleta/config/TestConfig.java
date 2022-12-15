@@ -44,7 +44,7 @@ public class TestConfig implements CommandLineRunner {
                 30, Instant.parse("2022-11-20T10:58:07Z"), Instant.parse("2022-11-20T10:58:07Z"));
         Product p3 = new Product(null, "2022 Polygon Gili Velo - Urban eBike",
                 "20-inch wheels zippy Urban eBike Aluminum frame, Bafang 250W motor with 252Wh battery, Tektro hydraulic disc brakes, Weight 38.36lbs",
-                "E-Bike", 1349.00, "https://www.bikesonline.com/assets/full/GILIVELO_2021.png?20220807190138",
+                "EBike", 1349.00, "https://www.bikesonline.com/assets/full/GILIVELO_2021.png?20220807190138",
                 6, Instant.parse("2022-12-02T01:21:22Z"), Instant.parse("2022-12-02T01:21:22Z"));
 
         productRepository.saveAll(Arrays.asList(p1, p2, p3));

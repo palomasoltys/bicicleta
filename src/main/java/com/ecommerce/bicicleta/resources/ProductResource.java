@@ -4,6 +4,7 @@ import com.ecommerce.bicicleta.entities.Product;
 import com.ecommerce.bicicleta.entities.User;
 import com.ecommerce.bicicleta.services.ProductService;
 import com.ecommerce.bicicleta.services.UserService;
+import lombok.experimental.PackagePrivate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -41,10 +42,26 @@ public class ProductResource {
         return "home";
     }
 
+
     @GetMapping(value = "/products/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id) {
-        Product obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+    public String findById(@PathVariable Long id, Model model) {
+        Product product = service.findById(id);
+        model.addAttribute("product", product);
+        return "product";
     }
+
+    @GetMapping(value = "/products/category/{category}")
+    public String findByCategory(@PathVariable String category, Model model) {
+        category = category.replaceAll("-", " ");
+        List<Product> product = service.findByCategory(category);
+        model.addAttribute("products", product);
+        return "category";
+    }
+
+    //    @GetMapping(value = "/products/{id}")
+//    public ResponseEntity<Product> findById(@PathVariable Long id) {
+//        Product obj = service.findById(id);
+//        return ResponseEntity.ok().body(obj);
+//    }
 
 }

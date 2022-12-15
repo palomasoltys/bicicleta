@@ -12,14 +12,16 @@
 </head>
 <body>
 <div>
-      <div>
+  <div>
+    <tr th:each="product: ${products}">
 
-        <p th:text="${product.name}"></p>
-        <p th:text="${product.description}"></p>
+      <div>
+        <p><td th:text="${product.name}" /></p>
         <img th:src="${product.imgUrl}" width="400" height="300" >
-        <p th:text="${product.price}"></p>
-        <button>Add to the Cart</button>
+        <p>$<td th:text="${product.price}" /></p>
+        <a th:href="@{/products/{id}(id=${product.id})}">See more</a>
       </div>
+    </tr>
 
   </div>
 
