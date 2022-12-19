@@ -12,6 +12,26 @@
 </head>
 <body>
 <div>
+  <div>
+    <div>
+      <a href="/">Bicycles</a>
+      <a href="/register">Sign In</a>
+    </div>
+    <div>
+      <a href="/products/category/mountain-bike">Mountain Bike</a>
+      <a href="/products/category/gravel-bike">Gravel Bike</a>
+      <a href="/products/category/ebike">E-Bike</a>
+    </div>
+    <div>
+      <a href="/orders/userId">Your Cart</a>
+    </div>
+    <div>
+      <form>
+        <input type="text" id="search-item" name="search-item" placeholder="Search for a specific item">
+        <input type="submit" value="Search">
+      </form>
+    </div>
+    <div>
       <div>
 
         <p th:text="${product.name}"></p>
