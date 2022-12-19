@@ -54,7 +54,12 @@ public class ProductResource {
     public String findByCategory(@PathVariable String category, Model model) {
         category = category.replaceAll("-", " ");
         List<Product> product = service.findByCategory(category);
-        model.addAttribute("products", product);
+        if(product.isEmpty()) {
+            model.addAttribute("products", "NoData");
+        } else {
+            model.addAttribute("products", product);
+
+        }
         return "category";
     }
 

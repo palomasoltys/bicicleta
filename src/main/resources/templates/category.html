@@ -12,7 +12,8 @@
 </head>
 <body>
 <div>
-  <div>
+  <div th:if="${products != 'NoData'}">
+    <p th:text="${products}"></p>
     <tr th:each="product: ${products}">
 
       <div>
@@ -22,6 +23,10 @@
         <a th:href="@{/products/{id}(id=${product.id})}">See more</a>
       </div>
     </tr>
+
+  </div>
+  <div th:unless="${products != 'NoData'}">
+    <p> Sorry, we don't have the bikes you're looking for</p>
 
   </div>
 
