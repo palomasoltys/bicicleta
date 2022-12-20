@@ -6,6 +6,7 @@ import com.ecommerce.bicicleta.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -27,6 +28,11 @@ public class UserResource {
         String passHash = passwordEncoder.encode(userDto.getPassword());
         userDto.setPassword(passHash);
         return service.addUser(userDto);
+    }
+
+    @GetMapping("/register")
+    public String register(){
+        return "register";
     }
 
     @PostMapping("/login")
