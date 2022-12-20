@@ -36,6 +36,11 @@ public class UserResource {
         return "register";
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
     @PostMapping("/login")
     public List<String> userLogin(@RequestBody UserDto userDto){
         return service.userLogin(userDto);
