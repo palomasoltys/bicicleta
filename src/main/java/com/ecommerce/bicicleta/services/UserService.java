@@ -36,7 +36,7 @@ public class UserService {
         List<String> response = new ArrayList<>();
         User user = new User(userDto);
         userRepository.saveAndFlush(user);
-        response.add("http://localhost:8080/login.html");
+        response.add("http://localhost:8080/users/login");
         return response;
     }
 
@@ -45,7 +45,7 @@ public class UserService {
         Optional<User> userOptional = userRepository.findByEmail(userDto.getEmail());
         if(userOptional.isPresent()) {
             if(passwordEncoder.matches(userDto.getPassword(), userOptional.get().getPassword())) {
-                response.add("http://localhost:8080/home.html");
+                response.add("http://localhost:8080/");
                 response.add(String.valueOf(userOptional.get().getId()));
             } else {
                 response.add("Username or password incorrect");

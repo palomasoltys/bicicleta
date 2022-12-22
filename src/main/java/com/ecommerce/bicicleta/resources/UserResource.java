@@ -24,7 +24,7 @@ public class UserResource {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping("/register")
+    @PostMapping("/register-form")
     public List<String> addUser(@RequestBody UserDto userDto){
         String passHash = passwordEncoder.encode(userDto.getPassword());
         userDto.setPassword(passHash);
@@ -38,6 +38,7 @@ public class UserResource {
 
     @GetMapping("/login")
     public String login(){
+
         return "login";
     }
 
