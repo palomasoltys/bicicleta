@@ -24,15 +24,24 @@ public class UserResource {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+//    @PostMapping(value = "/register-form", consumes = {"application/xml","application/json"})
+//    public List<String> addUser(@RequestBody UserDto userDto){
+//        String passHash = passwordEncoder.encode(userDto.getPassword());
+//        userDto.setPassword(passHash);
+//        System.out.println(userDto.toString());
+//        return service.addUser(userDto);
+//    }
+
     @PostMapping("/register-form")
-    public List<String> addUser(@RequestBody UserDto userDto){
-        String passHash = passwordEncoder.encode(userDto.getPassword());
-        userDto.setPassword(passHash);
-        return service.addUser(userDto);
+    public String registerUser(UserDto userDto) {
+        System.out.println( userDto.toString());
+        return "redirect:/users/login";
     }
 
     @GetMapping("/register")
     public String register(){
+//        UserDto userDto = new UserDto();
+//        model.addAttribute("user", userDto);
         return "register";
     }
 
@@ -42,7 +51,7 @@ public class UserResource {
         return "login";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login-form")
     public List<String> userLogin(@RequestBody UserDto userDto){
         return service.userLogin(userDto);
     }

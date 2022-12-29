@@ -17,7 +17,7 @@ const handleSubmit = async (e) =>{
     }
     console.log(bodyObj);
 
-    const response = await fetch(`${baseUrl}/login`, {
+    const response = await fetch(`${baseUrl}/login-form`, {
         method: "POST",
         body: JSON.stringify(bodyObj),
         headers: headers
