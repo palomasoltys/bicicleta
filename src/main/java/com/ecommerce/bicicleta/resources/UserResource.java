@@ -3,6 +3,7 @@ package com.ecommerce.bicicleta.resources;
 import com.ecommerce.bicicleta.dtos.UserDto;
 import com.ecommerce.bicicleta.entities.User;
 import com.ecommerce.bicicleta.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -49,11 +50,6 @@ public class UserResource {
     public String login(){
 
         return "login";
-    }
-
-    @PostMapping("/login-form")
-    public List<String> userLogin(@RequestBody UserDto userDto){
-        return service.userLogin(userDto);
     }
 
     @GetMapping

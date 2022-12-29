@@ -40,19 +40,27 @@ public class UserService {
         return response;
     }
 
-    public List<String> userLogin(UserDto userDto) {
-        List<String> response = new ArrayList<>();
+    public LoginResponse userLogin(UserDto userDto) {
+        System.out.println(userDto);
+        LoginResponse response = new LoginResponse();
         Optional<User> userOptional = userRepository.findByEmail(userDto.getEmail());
         if(userOptional.isPresent()) {
-            if(passwordEncoder.matches(userDto.getPassword(), userOptional.get().getPassword())) {
-                response.add("http://localhost:8080/");
-                response.add(String.valueOf(userOptional.get().getId()));
+            System.out.println(userDto.getPassword());
+            System.out.println(userOptional.get().getPassword());
+              if(userDto.getPassword().equals(userOptional.get().getPassword())) {
+//            if(passwordEncoder.matches(userDto.getPassword(), userOptional.get().getPassword())) {
+                response.setSuccessful(true);
+                response.setResponse(List.of("http://localhost:8080/",String.valueOf(userOptional.get().getId())));
             } else {
-                response.add("Username or password incorrect");
+                response.setSuccessful(false);
+                response.setResponse(List.of("Email or password incorrect"));
             }
         } else {
-            response.add("Username or password incorrect");
+            response.setSuccessful(false);
+            response.setResponse(List.of("Email or password incorrect"));
+
         }
+        System.out.println(response);
         return response;
     }
 
