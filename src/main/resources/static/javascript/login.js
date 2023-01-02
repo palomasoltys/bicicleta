@@ -32,6 +32,8 @@ const handleSubmit = async (e) =>{
         document.cookie = `userId=${responseArr[1]}`
         console.log(document.cookie)
         window.location.replace(responseArr[0])
+        console.log(document.cookie)
+
     }
 }
 
