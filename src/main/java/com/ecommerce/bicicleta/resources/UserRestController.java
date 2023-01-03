@@ -35,4 +35,12 @@ public class UserRestController {
         }
 
     }
+    @PostMapping("/register-form")
+    public ResponseEntity<List<String>> registerUser(@RequestBody UserDto userDto) {
+        System.out.println(userDto);
+        var response = service.addUser(userDto);
+        System.out.println(response);
+        return ResponseEntity.ok().body(response);
+    }
+
 }

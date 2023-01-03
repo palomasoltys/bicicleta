@@ -22,16 +22,17 @@
 </div>
 <div class="d-flex align-items-center justify-content-center">
   <section>
-    <form action="/users/register-form" method="POST" >
-      <p>Full name <input type="text" name="name" required></p>
-      <p>Email <input type="text" name="email" required></p>
-      <p>Password <input type="password" name="password" required></p>
+    <form id="register-form" action="/users/register-form" method="POST">
+      <p>Full name <input type="text" name="register-name" id="register-name" required></p>
+      <p>Email <input type="text" name="register-email" id="register-email" required></p>
+      <p>Password <input type="password" name="register-password" id="register-password" required></p>
       <p>Confirm Password <input type="password" name="confirm-password" required></p>
-      <p><input type="submit" class="btn btn-outline-danger" value="Create an Account"></p>
+      <button type="submit" class="btn btn-outline-danger">Create an Account</button>
     </form>
 
     <p>Already have an account? <a href="/users/login">Log in here.</a></p>
   </section>
 </div>
+<script src="/static/javascript/register.js" type="application/javascript"></script>
 </body>
 </html>
