@@ -35,11 +35,15 @@
   </div>
       <div>
 
-        <p th:text="${product.name}"></p>
-        <p th:text="${product.description}"></p>
-        <img th:src="${product.imgUrl}" width="400" height="300" >
-        <p th:text="${product.price}"></p>
-        <button>Add to the Cart</button>
+        <form id="add-to-cart-form">
+        <p th:text="${product.name}" id="product-name"></p>
+        <p th:text="${product.description}" id="product-description"></p>
+        <img th:src="${product.imgUrl}" width="400" height="300" id="product-url">
+        <p th:text="${product.price}" id="product-price"></p>
+          <label for="product-quantity">Quantity:</label><br>
+          <input type="number" id="product-quantity" name="quantity" min="1" value="1"><br>
+          <button type="submit">Add to Cart</button>
+        </form>
       </div>
 
   </div>
