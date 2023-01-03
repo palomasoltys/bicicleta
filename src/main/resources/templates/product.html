@@ -34,9 +34,8 @@
     </div>
   </div>
       <div>
-
-        <form id="add-to-cart-form">
-        <p th:text="${product.name}" id="product-name"></p>
+        <form id="add-to-cart-form" action="/add-to-the-cart" method="post">
+          <p th:id="product-name" th:text="${product.name}"></p>
         <p th:text="${product.description}" id="product-description"></p>
         <img th:src="${product.imgUrl}" width="400" height="300" id="product-url">
         <p th:text="${product.price}" id="product-price"></p>
@@ -51,6 +50,7 @@
 
 
 
+<script src="/static/javascript/cart.js" type="application/javascript"></script>
 
 </div>
 </body>
