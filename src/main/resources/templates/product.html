@@ -29,6 +29,9 @@
       <div th:if="${user != null}">
         <a th:href="@{/users/{id}(id=${user.id})}">Profile</a>
       </div>
+      <div th:if="${user != null}">
+        <a href="/users/logout">Log Out</a>
+      </div>
 
     </div>
     <div>

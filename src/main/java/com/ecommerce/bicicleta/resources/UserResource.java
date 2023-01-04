@@ -5,6 +5,7 @@ import com.ecommerce.bicicleta.entities.User;
 import com.ecommerce.bicicleta.services.UserService;
 import com.sun.net.httpserver.HttpContext;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,6 +41,15 @@ public class UserResource {
     public String login(){
 
         return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.setAttribute("user-id", null);
+//        String userId = (String) session.getAttribute("user-id");
+//        User user = service.findById(Long.valueOf(userId));
+
+        return "redirect:/users/login";
     }
 
     @GetMapping
