@@ -12,9 +12,21 @@
 </head>
 <body>
 <div>
-  <a href="/">Bicycles</a>
-  <a href="/users/register">Sign up</a>
-  <a href="/users/login">Log in</a>
+  <div>
+    <a href="/">Bicycles</a>
+  </div>
+
+  <div th:if="${user == null}">
+    <a href="/users/register">Sign up</a>
+  </div>
+
+  <div th:if="${user == null}">
+    <a href="/users/login">Log in</a>
+  </div>
+
+  <div th:if="${user != null}">
+    <a th:href="@{/users/{id}(id=${user.id})}">Profile</a>
+  </div>
 
 </div>
 <div>
