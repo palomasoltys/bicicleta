@@ -4,6 +4,7 @@ import com.ecommerce.bicicleta.entities.Product;
 import com.ecommerce.bicicleta.entities.User;
 import com.ecommerce.bicicleta.services.ProductService;
 import com.ecommerce.bicicleta.services.UserService;
+import jakarta.servlet.http.HttpSession;
 import lombok.experimental.PackagePrivate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,9 @@ public class ProductResource {
     @Autowired
     private ProductService service;
 
+    @Autowired
+    private UserService userService;
+
 //    @RequestMapping
 //    public String getHomePage()
 //    {
@@ -36,7 +40,14 @@ public class ProductResource {
 //    }
 
     @GetMapping
-    public String listAll(Model model) {
+    public String listAll(Model model, HttpSession session) {
+        String userId = (String) session.getAttribute("user-id");
+        if(userId == null) {
+            model.addAttribute("user", null);
+        } else {
+            User user = userService.findById(Long.valueOf(userId));
+            model.addAttribute("user", user);
+        }
         List<Product> listProducts = service.findAll();
         model.addAttribute("listProducts", listProducts);
         return "home";
