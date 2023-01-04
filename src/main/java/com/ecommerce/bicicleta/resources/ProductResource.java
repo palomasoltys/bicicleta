@@ -55,14 +55,28 @@ public class ProductResource {
 
 
     @GetMapping(value = "/products/{id}")
-    public String findById(@PathVariable Long id, Model model) {
+    public String findById(@PathVariable Long id, Model model, HttpSession session) {
+        String userId = (String) session.getAttribute("user-id");
+        if(userId == null) {
+            model.addAttribute("user", null);
+        } else {
+            User user = userService.findById(Long.valueOf(userId));
+            model.addAttribute("user", user);
+        }
         Product product = service.findById(id);
         model.addAttribute("product", product);
         return "product";
     }
 
     @GetMapping(value = "/products/category/{category}")
-    public String findByCategory(@PathVariable String category, Model model) {
+    public String findByCategory(@PathVariable String category, Model model, HttpSession session) {
+        String userId = (String) session.getAttribute("user-id");
+        if(userId == null) {
+            model.addAttribute("user", null);
+        } else {
+            User user = userService.findById(Long.valueOf(userId));
+            model.addAttribute("user", user);
+        }
         category = category.replaceAll("-", " ");
         List<Product> product = service.findByCategory(category);
         if(product.isEmpty()) {
