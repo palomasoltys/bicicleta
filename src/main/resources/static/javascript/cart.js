@@ -28,7 +28,7 @@ const handleSubmit = async (e) =>{
 
     }
     console.log(bodyObj);
-
+    console.log(document.cookie)
     const response = await fetch(`${baseUrl}/add-to-the-cart/${id}`, {
         method: "POST",
         body: JSON.stringify(bodyObj),
@@ -38,17 +38,19 @@ const handleSubmit = async (e) =>{
 //        .catch(err => console.error(err.message))
 //    console.log(response)
 //
+console.log(document.cookie)
     const responseArr = await response.json()
     console.log(responseArr)
 //
     if (response.status === 200){
     console.log("WORKED")
-//        document.cookie = `userId=${responseArr[1]}`
-//        console.log(document.cookie)
-//        window.location.replace(responseArr[0])
-//        console.log(document.cookie)
-//
+    const yourCart = document.getElementById('your-cart')
+    window.alert(`${productName.innerText} was added to your cart.`)
+    yourCart.innerText = `Your Cart (${responseArr[0]} items)`
+
+
     } else if(response.status === 400) {
+    window.alert(`${responseArr[0]}`)
     console.log("BAD REQUEST")
     }
 }

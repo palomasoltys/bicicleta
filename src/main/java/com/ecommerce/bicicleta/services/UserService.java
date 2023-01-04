@@ -45,8 +45,6 @@ public class UserService {
         LoginResponse response = new LoginResponse();
         Optional<User> userOptional = userRepository.findByEmail(userDto.getEmail());
         if(userOptional.isPresent()) {
-            System.out.println(userDto.getPassword());
-            System.out.println(userOptional.get().getPassword());
               if(userDto.getPassword().equals(userOptional.get().getPassword())) {
 //            if(passwordEncoder.matches(userDto.getPassword(), userOptional.get().getPassword())) {
                 response.setSuccessful(true);
