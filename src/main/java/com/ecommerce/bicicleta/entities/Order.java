@@ -59,6 +59,9 @@ public class Order implements Serializable {
         this.user = user;
     }
 
+    public Order(Order order) {
+    }
+
     public OrderStatus getOrderStatus() {
         return OrderStatus.valueOf(orderStatus);
     }

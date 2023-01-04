@@ -46,8 +46,6 @@ public class UserResource {
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.setAttribute("user-id", null);
-//        String userId = (String) session.getAttribute("user-id");
-//        User user = service.findById(Long.valueOf(userId));
 
         return "redirect:/users/login";
     }
@@ -58,10 +56,17 @@ public class UserResource {
         return ResponseEntity.ok().body(list);
     }
 
+//    @GetMapping(value = "/{id}")
+//    public ResponseEntity<User> findById(@PathVariable Long id) {
+//        User obj = service.findById(id);
+//        return ResponseEntity.ok().body(obj);
+//    }
+
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> findById(@PathVariable Long id) {
-        User obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+    public String getOrdersByUserId(@PathVariable Long id, Model model) {
+        User user = service.findById(id);
+        model.addAttribute("user", user);
+        return "profile";
     }
 
     @PostMapping

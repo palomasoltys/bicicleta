@@ -31,11 +31,16 @@ public class OrderService {
         return obj.get();
     }
 
-    public List<OrderDto> findAllOrdersByUserId(Long userId) {
+    public List<Order> findAllOrdersByUserId(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if(userOptional.isPresent()) {
             List<Order> orderList = orderRepository.findAllByUserEquals(userOptional.get());
-            return orderList.stream().map(OrderDto::new).collect(Collectors.toList());
+            for(Order x : orderList) {
+                System.out.println(x.getId());
+                System.out.println(x.getUser().getName());
+                System.out.println(x.getOrderStatus());
+            }
+            return orderList.stream().map(Order::new).collect(Collectors.toList());
         }
         return Collections.emptyList();
     }

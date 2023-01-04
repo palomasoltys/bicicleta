@@ -32,8 +32,11 @@ public class OrderResource {
     }
 
     @GetMapping("/user/{userId}")
-    public List<OrderDto> getOrdersByUserId(@PathVariable long userId) {
+    public List<Order> getOrdersByUserId(@PathVariable long userId) {
         return service.findAllOrdersByUserId(userId);
+
+
+
     }
 
 }
