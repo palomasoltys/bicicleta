@@ -23,7 +23,9 @@
   <div th:if="${user == null}">
     <a href="/users/login">Log in</a>
   </div>
-
+  <div th:if="${user != null}">
+    <a th:href="@{/users/{id}(id=${user.id})}">Profile</a>
+  </div>
   <div th:if="${user != null}">
     <a href="/users/logout">Log Out</a>
   </div>
@@ -34,34 +36,21 @@
   <a href="/products/category/ebike">E-Bike</a>
 </div>
 
-<div th:if="${user != null}">
-  <a th:href="@{/orders/cart/user/{id}(id=${user.id})}">Your Cart</a>
-</div>
-
-<div>
-  <div th:if="${user.orders == null}">
-    <p>You haven't ordered anything yet</p>
-  </div>
-  <div th:each="order : ${user.orders}">
-    <h2>Your Orders</h2>
-    <p>Order Number: <span th:text="${order.id}"></span></p>
-    <p>Date Created: <span th:text="${order.dateCreated}"></span></p>
-    <p>Order Status: <span th:text="${order.orderStatus}"></span></p>
-    <div th:each="item : ${order.items}">
-      <h3>Item</h3>
-      <p>Quantity: <span th:text="${item.quantity}"></span></p>
-      <p>Price: <span th:text="${item.price}"></span></p>
-      <p>SubTotal: <span th:text="${item.subTotal}"></span></p>
-      <div th:each="product : ${item.product}">
-        <h4>Product</h4>
-        <p>Product Name: <span th:text="${product.name}"></span></p>
-        <p>Product Description: <span th:text="${product.description}"></span></p>
-        <img th:src="${product.imgUrl}" width="400" height="300" >
-      </div>
+<div th:each="order : ${orders}">
+  <div th:each="item : ${order.items}">
+    <p> Quantity: <span th:text="${item.quantity}"></span></p>
+    <p> Price: $<span th:text="${item.price}"></span></p>
+    <p> Subtotal: $<span th:text="${item.subTotal}"></span></p>
+    <div th:if="${item.product != null}">
+      <p th:text="${item.product.name}"></p>
+      <p th:text="${item.product.description}"></p>
+      <img th:src="${item.product.imgUrl}" width="400" height="300" >
     </div>
   </div>
-
-
+  <p>Total: $<span th:text="${order.total}"></span></p>
+</div>
+<div>
+  <button type="submit">Checkout</button>
 </div>
 
 </body>
