@@ -55,7 +55,7 @@ public class OrderResource {
         }
         model.addAttribute("user", user);
         model.addAttribute("orders", ordersInTheCart);
-        return "checkout";
+        return "cart";
 
     }
 
