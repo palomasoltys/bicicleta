@@ -1,11 +1,10 @@
 let itemQuantity = document.getElementById('item-quantity').innerText;
-const itemPrice = document.getElementById('item-price').innerText;
-const itemSubTotal = document.getElementById('item-subtotal').innerText;
+let itemPrice = document.getElementById('item-price').innerText;
+let itemSubTotal = document.getElementById('item-subtotal').innerText;
 const productName = document.getElementById('product-name').innerText;
+const productId = document.getElementById('product-id').innerText;
 const productDescription = document.getElementById('product-description').innerText;
 const orderId = document.getElementById('order-id').innerText;
-let url = window.location.href;
-let productId = url.substring(url.lastIndexOf('/') + 1);
 
 const baseUrl = 'http://localhost:8080/products/cart'
 
@@ -14,37 +13,50 @@ const headers = {
 }
 
 const removeItemBtn = document.getElementById('remove-item-btn');
-
-
 const addItemBtn = document.getElementById('add-item-btn');
 
 
 function updateCart(operator) {
     if(operator === "+") {
-        itemQuantity++
+    itemQuantity++;
+       return itemQuantity
     } else if (operator === "-"){
-        itemQuantity--
+    itemQuantity--;
+       return itemQuantity--
+    }
+}
+
+const handleSubmitRemoveItem = async (e) => {
+    let qty = updateCart("-");
+    let obj = {
+    quantity: qty,
+    price: itemPrice,
+    productId: productId
     }
 
-    let obj = {
-    id: orderId,
-    quantity: itemQuantity
-    }
-//
-//    const response = await fetch(`${baseUrl}/update-cart/${productId}`, {
-//    method: "POST",
-//    body: JSON.stringify(obj),
-//    headers: headers
-//    })
-//    console.log(response)
+    const response = await fetch(`${baseUrl}/update-cart/${orderId}`, {
+        method: "POST",
+        body: JSON.stringify(obj),
+        headers: headers
+    })
+    const responseArr = await response.json()
+    console.log(responseArr)
+
+
+    document.getElementById('item-quantity').innerText = responseArr[0];
+    document.getElementById('itemCount').innerText = responseArr[0];
+    document.getElementById('item-subtotal').innerText = responseArr[1];
+    document.getElementById('order-total').innerText = responseArr[2];
+
 }
+
 
 const checkoutItemsBtn = document.getElementById('checkout-btn');
 
 //checkoutItemsBtn.addEventListener('click', () => {
 //})
 
-removeItemBtn.addEventListener("click", () => { updateCart("-") });
+removeItemBtn.addEventListener("click", handleSubmitRemoveItem);
 addItemBtn.addEventListener("click", () => { updateCart("+") });
 
 

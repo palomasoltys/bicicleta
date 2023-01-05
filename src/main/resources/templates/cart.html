@@ -43,6 +43,7 @@
     <p> Price: $<span th:text="${item.price}" id="item-price"></span></p>
     <p> Subtotal: $<span th:text="${item.subTotal}" id="item-subtotal"></span></p>
     <div th:if="${item.product != null}">
+      <p th:text="${item.product.id}" id="product-id"></p>
       <p th:text="${item.product.name}" id="product-name"></p>
       <p th:text="${item.product.description}" id="product-description"></p>
       <img th:src="${item.product.imgUrl}" width="400" height="300" id="product-img">

@@ -7,6 +7,7 @@ import com.ecommerce.bicicleta.entities.Product;
 import com.ecommerce.bicicleta.entities.User;
 import com.ecommerce.bicicleta.entities.enums.OrderStatus;
 import com.ecommerce.bicicleta.repositories.UserRepository;
+import com.ecommerce.bicicleta.services.OrderService;
 import com.ecommerce.bicicleta.services.ProductService;
 import com.ecommerce.bicicleta.services.UserService;
 
@@ -14,12 +15,14 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import jakarta.servlet.http.HttpSession;
+import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/products")
@@ -30,6 +33,9 @@ public class ProductRestController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OrderService orderService;
 
 
     @PostMapping("/cart/add-to-the-cart/{id}")
@@ -70,5 +76,28 @@ public class ProductRestController {
 
             return ResponseEntity.ok().body(response);
         }
+    }
+
+    @PostMapping("/cart/update-cart/{orderId}")
+    public ResponseEntity<Object> updateCart(@PathVariable String orderId, @RequestBody Map<String, String> obj) {
+        List<String> response = new ArrayList<>();
+        String quantity =  obj.get("quantity");
+        String price =  obj.get("price");
+        String productId = obj.get("productId");
+        Long productIdLong = Long.valueOf(productId);
+        Order order = orderService.findById(Long.valueOf(orderId));
+        var items = order.getItems();
+        for(OrderItem item : items) {
+            var itemId = item.getProduct().getId();
+            if(itemId == productIdLong) {
+                item.setQuantity(Integer.valueOf(quantity));
+                response.add(item.getQuantity().toString());
+                response.add(item.getSubTotal().toString());
+            }
+        }
+        response.add(order.getTotal().toString());
+
+        return ResponseEntity.ok().body(response);
+
     }
 }
