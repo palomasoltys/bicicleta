@@ -35,11 +35,11 @@ public class OrderService {
         Optional<User> userOptional = userRepository.findById(userId);
         if(userOptional.isPresent()) {
             List<Order> orderList = orderRepository.findAllByUserEquals(userOptional.get());
-            for(Order x : orderList) {
-                System.out.println(x.getId());
-                System.out.println(x.getUser().getName());
-                System.out.println(x.getOrderStatus());
-            }
+//            for(Order x : orderList) {
+//                System.out.println(x.getId());
+//                System.out.println(x.getUser().getName());
+//                System.out.println(x.getOrderStatus());
+//            }
             return orderList.stream().map(Order::new).collect(Collectors.toList());
         }
         return Collections.emptyList();
