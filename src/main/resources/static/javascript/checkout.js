@@ -50,6 +50,30 @@ const handleSubmitRemoveItem = async (e) => {
 
 }
 
+const handleSubmitAddItem = async (e) => {
+    let qty = updateCart("+");
+    let obj = {
+    quantity: qty,
+    price: itemPrice,
+    productId: productId
+    }
+
+    const response = await fetch(`${baseUrl}/update-cart/${orderId}`, {
+        method: "POST",
+        body: JSON.stringify(obj),
+        headers: headers
+    })
+    const responseArr = await response.json()
+    console.log(responseArr)
+
+
+    document.getElementById('item-quantity').innerText = responseArr[0];
+    document.getElementById('itemCount').innerText = responseArr[0];
+    document.getElementById('item-subtotal').innerText = responseArr[1];
+    document.getElementById('order-total').innerText = responseArr[2];
+
+}
+
 
 const checkoutItemsBtn = document.getElementById('checkout-btn');
 
@@ -57,7 +81,7 @@ const checkoutItemsBtn = document.getElementById('checkout-btn');
 //})
 
 removeItemBtn.addEventListener("click", handleSubmitRemoveItem);
-addItemBtn.addEventListener("click", () => { updateCart("+") });
+addItemBtn.addEventListener("click", handleSubmitAddItem);
 
 
 
