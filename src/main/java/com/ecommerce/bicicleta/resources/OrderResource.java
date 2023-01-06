@@ -47,17 +47,26 @@ public class OrderResource {
     @GetMapping("/cart/user/{userId}")
     public String getOrdersInTheCartByUserId(@PathVariable long userId, Model model) {
         User user = userService.findById(userId);
+        Long orderId = 0L;
         List<Order> ordersInTheCart = new ArrayList<>();
         for(Order order : user.getOrders()){
             if(order.getOrderStatus().getCode() == 1){
                 ordersInTheCart.add(order);
+                orderId = order.getId();
             }
         }
+        System.out.println("ORDER ID: "+orderId);
+        model.addAttribute("orderId", orderId);
         model.addAttribute("user", user);
         model.addAttribute("orders", ordersInTheCart);
         return "cart";
 
     }
 
+    @GetMapping("/cart/checkout/{orderId}")
+    public String checkout(@PathVariable long orderId) {
+        System.out.println("ORDER RESOURCE");
+        return "checkout";
+    }
 
 }

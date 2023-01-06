@@ -35,30 +35,7 @@
   <a href="/products/category/gravel-bike">Gravel Bike</a>
   <a href="/products/category/ebike">E-Bike</a>
 </div>
-<h2>Your Shopping Cart</h2>
-<div th:each="order : ${orders}">
-  <p th:text="${order.id}" id="order-id"></p>
-  <div th:each="item : ${order.items}">
-    <p> Quantity: <span th:text="${item.quantity}" id="item-quantity"></span></p>
-    <p> Price: $<span th:text="${item.price}" id="item-price"></span></p>
-    <p> Subtotal: $<span th:text="${item.subTotal}" id="item-subtotal"></span></p>
-    <div th:if="${item.product != null}">
-      <p th:text="${item.product.id}" id="product-id"></p>
-      <p th:text="${item.product.name}" id="product-name"></p>
-      <p th:text="${item.product.description}" id="product-description"></p>
-      <img th:src="${item.product.imgUrl}" width="400" height="300" id="product-img">
-    </div>
-  <p>Total: $<span th:text="${order.total}" id="order-total"></span></p>
-
-  <button id="remove-item-btn">-</button>
-  <span id="itemCount" th:text="${item.quantity}"></span>
-  <button id="add-item-btn">+</button>
-  </div>
-</div>
-<div th:if="${user != null}">
-  <a th:href="@{/orders/cart/checkout/{id}(id=${orderId})}">Checkout</a>
-</div>
-<script src="/static/javascript/checkout.js" type="application/javascript"></script>
+<h2>Checkout</h2>
 
 </body>
 </html>
