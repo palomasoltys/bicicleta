@@ -64,9 +64,12 @@ public class OrderResource {
     }
 
     @GetMapping("/cart/checkout/{orderId}")
-    public String checkout(@PathVariable long orderId) {
-        System.out.println("ORDER RESOURCE");
+    public String checkoutOrdersInTheCart(@PathVariable long orderId, Model model) {
+        var order = service.findById(orderId);
+        var user = order.getUser();
+        model.addAttribute("user", user);
         return "checkout";
     }
+
 
 }

@@ -56,7 +56,7 @@
   </div>
 </div>
 <div th:if="${user != null}">
-  <a th:href="@{/orders/cart/checkout/{id}(id=${orderId})}">Checkout</a>
+  <a th:href="@{/orders/cart/checkout/{id}(id=${orderId})}"><button id="checkout-btn">Checkout</button></a>
 </div>
 <script src="/static/javascript/checkout.js" type="application/javascript"></script>
 

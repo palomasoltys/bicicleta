@@ -77,8 +77,10 @@ const handleSubmitAddItem = async (e) => {
 
 const checkoutItemsBtn = document.getElementById('checkout-btn');
 
-//checkoutItemsBtn.addEventListener('click', () => {
-//})
+const handleCheckoutItems = async (e) => {
+
+
+}
 
 removeItemBtn.addEventListener("click", handleSubmitRemoveItem);
 addItemBtn.addEventListener("click", handleSubmitAddItem);
