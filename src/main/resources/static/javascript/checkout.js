@@ -1,10 +1,10 @@
-let itemQuantity = document.getElementById('item-quantity').innerText;
-let itemPrice = document.getElementById('item-price').innerText;
-let itemSubTotal = document.getElementById('item-subtotal').innerText;
-const productName = document.getElementById('product-name').innerText;
-const productId = document.getElementById('product-id').innerText;
-const productDescription = document.getElementById('product-description').innerText;
-const orderId = document.getElementById('order-id').innerText;
+//let itemQuantity = document.getElementById('item-quantity').innerText;
+//let itemPrice = document.getElementById('item-price').innerText;
+//let itemSubTotal = document.getElementById('item-subtotal').innerText;
+//const productName = document.getElementById('product-name').innerText;
+//const productId = document.getElementById('product-id').innerText;
+//const productDescription = document.getElementById('product-description').innerText;
+//const orderId = document.getElementById('order-id').innerText;
 
 const baseUrl = 'http://localhost:8080/products/cart'
 
@@ -17,6 +17,8 @@ const addItemBtn = document.getElementById('add-item-btn');
 
 
 function updateCart(operator) {
+    let itemQuantity = document.getElementById('item-quantity').innerText;
+
     if(operator === "+") {
     itemQuantity++;
        return itemQuantity
@@ -27,12 +29,17 @@ function updateCart(operator) {
 }
 
 const handleSubmitRemoveItem = async (e) => {
+    let itemPrice = document.getElementById('item-price').innerText;
+    const productId = document.getElementById('product-id').innerText;
     let qty = updateCart("-");
     let obj = {
     quantity: qty,
     price: itemPrice,
     productId: productId
     }
+
+    const orderId = document.getElementById('order-id').innerText;
+
 
     const response = await fetch(`${baseUrl}/update-cart/${orderId}`, {
         method: "POST",
@@ -50,12 +57,17 @@ const handleSubmitRemoveItem = async (e) => {
 
 }
 const handleSubmitAddItem = async (e) => {
+    let itemPrice = document.getElementById('item-price').innerText;
+    const productId = document.getElementById('product-id').innerText;
     let qty = updateCart("+");
     let obj = {
     quantity: qty,
     price: itemPrice,
     productId: productId
     }
+
+    const orderId = document.getElementById('order-id').innerText;
+
 
     const response = await fetch(`${baseUrl}/update-cart/${orderId}`, {
         method: "POST",
@@ -73,34 +85,56 @@ const handleSubmitAddItem = async (e) => {
 
 }
 
-
 const checkoutItemsBtn = document.getElementById('checkout-btn');
 
-const handleCheckoutItems = async (e) => {
-    console.log("CHECKOUT BUTTON ")
-    const urlOrders = 'http://localhost:8080/orders/cart'
+//checkoutItemsBtn.addEventListener("click", async () => {
+//    console.log("CHECKOUT BUTTON - arrow function ")
+//
+//    const orderId = document.getElementById('order-id').innerText;
+//    const urlBase = "http://localhost:8080/orders/cart"
+//    window.location.href = `${urlBase}/checkout/${orderId}`;
+//
+//    let obj = {
+//    orderId: orderId
+//    }
+//
+// fetch(`${urlBase}/checkout/${orderId}`, {
+//         method: "GET",
+//     }).then(response => response.json())
+//     .then((responseArr) => {
+//         if (window.location.href.indexOf(`${urlBase}/checkout/${orderId}`) > -1) {
+//             console.log(document.getElementById('summary-product-price'));
+//             document.getElementById('summary-product-price').innerText = responseArr[1]
+//             document.getElementById('summary-product-quantity').innerText = responseArr[0];
+//             document.getElementById('summary-product-subtotal').innerText = responseArr[2];
+//             document.getElementById('summary-product-total').innerText = responseArr[3] ;
+//         }
+//         else {
+//             console.log("page didnt load")
+//         }
+//     })
 
-    console.log("ORDER ID CHECKOUT PAGE: "+orderId)
-//    const response = await fetch(`${urlOrders}/checkout?id=${orderId}`) {
-//  method: 'GET'
-//})
-//  .then(response => response.json())
-//  .then(data => {
-//    console.log(data);
-//  });
+
+//const handleCheckoutItems = async (e) => {
+//    console.log("CHECKOUT BUTTON ")
+////
+//    const orderId = document.getElementById('order-id').innerText;
+//    console.log(orderId)
+//    const response = await fetch(`${baseUrl}/checkout?id=${orderId}`)
+//    .then(response => response.json())
+//    .then(data => {
+//    console.log(data)})
 
 //    document.getElementById('summary-product-price').innerText = document.getElementById('item-price').innerText;;
 //    document.getElementById('summary-product-quantity').innerText = responseArr[0];
 //    document.getElementById('summary-product-subtotal').innerText = responseArr[1];
 //    document.getElementById('summary-product-total').innerText = responseArr[2] ;
 
+//}
 
 
-}
 
-checkoutItemsBtn.addEventListener("click", handleCheckoutItems);
+//checkoutItemsBtn.addEventListener("click", handleCheckoutItems);
 removeItemBtn.addEventListener("click", handleSubmitRemoveItem);
 addItemBtn.addEventListener("click", handleSubmitAddItem);
-
-
 

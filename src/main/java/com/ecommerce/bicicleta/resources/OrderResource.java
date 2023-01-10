@@ -1,6 +1,5 @@
 package com.ecommerce.bicicleta.resources;
 
-import com.ecommerce.bicicleta.dtos.OrderDto;
 import com.ecommerce.bicicleta.entities.Order;
 import com.ecommerce.bicicleta.entities.OrderItem;
 import com.ecommerce.bicicleta.entities.Product;
@@ -14,10 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/orders")
@@ -67,22 +66,14 @@ public class OrderResource {
     @GetMapping("/cart/checkout/{orderId}")
     public String checkoutOrdersInTheCart(@PathVariable long orderId, Model model) {
         var order = service.findById(orderId);
-        var items = order.getItems();
-        List<Product> products = new ArrayList<>();
-        for(OrderItem item : items) {
-            System.out.println("QUANTITY CHECKOUT: "+item.getQuantity());
-
-            products.add(item.getProduct());
-        }
         var user = order.getUser();
-        for(var p: products) {
-            model.addAttribute("productName", p.getName());
-            model.addAttribute("productDescription", p.getDescription());
+
+        model.addAttribute("user", user);
+        if(order.getOrderStatus().getCode() == 1) {
+            model.addAttribute("orders", order);
+
 
         }
-        System.out.println("ORDER ID CHECKOUT: "+orderId);
-        model.addAttribute("orders", order);
-        model.addAttribute("user", user);
         return "checkout";
     }
 

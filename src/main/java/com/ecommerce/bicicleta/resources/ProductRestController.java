@@ -75,4 +75,20 @@ public class ProductRestController {
         return ResponseEntity.ok().body(res);
 
     }
+
+    @GetMapping("/cart/checkout/{orderId}")
+    public ResponseEntity<Object> checkoutCart(@PathVariable String orderId) {
+        System.out.println("HERE");
+        List<String> res = new ArrayList<>();
+        var orders = orderService.findById(Long.valueOf(orderId));
+        var items = orders.getItems();
+        for(var item: items) {
+            res.add(item.getQuantity().toString());
+            res.add(item.getProduct().getPrice().toString());
+            res.add(item.getSubTotal().toString());
+        res.add(orders.getTotal().toString());
+        }
+        System.out.println(res);
+        return ResponseEntity.ok().body(res);
+    }
 }

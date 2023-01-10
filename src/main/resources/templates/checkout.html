@@ -39,14 +39,19 @@
 <h2>Checkout</h2>
 <div id="summary">
   <h3>Summary:</h3>
-  <p id="summary-product-name"><span th:text="${productName}"></span></p>
-  <p id="summary-product-description"><span th:text="${productDescription}"></span></p>
-  <p>Product img:</p>
-  <p id="summary-product-quantity">Quantity: </p>
-  <p id="summary-product-price">Price: </p>
-  <p id="summary-product-subtotal">Subtotal: </p>
-  <p id="summary-product-total">Total: </p>
-</div>
+  <div th:each="item : ${orders.items}">
+    <div>Quantity: <span th:text="${item.quantity}"></span></div>
+    <div>Price: $<span th:text="${item.price}"></span></div>
+    <div>Subtotal: $<span th:text="${item.subTotal}"></span></div>
+    <div th:each="product : ${item.product}">
+      <div><span th:text="${product.name}"></span></div>
+      <div><span th:text="${product.description}"></span></div>
+      <div> <img th:src="${product.imgUrl}" width="400" height="300"></div>
+    </div>
+    <hr/>
+  </div>
+  <div>
+    <div>Total : $<span th:text="${orders.total}"></span></div>
 
 <div id="shipping-information">
   <h3>Shipping Information</h3>
@@ -161,6 +166,6 @@
 
 
 
-<script src="/static/javascript/checkout.js" type="application/javascript"></script>
+<script async src="/static/javascript/checkout.js" type="application/javascript"></script>
 </body>
 </html>
