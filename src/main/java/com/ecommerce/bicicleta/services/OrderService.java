@@ -6,6 +6,7 @@ import com.ecommerce.bicicleta.entities.OrderItem;
 import com.ecommerce.bicicleta.entities.Product;
 import com.ecommerce.bicicleta.entities.User;
 import com.ecommerce.bicicleta.entities.enums.OrderStatus;
+import com.ecommerce.bicicleta.repositories.OrderItemRepository;
 import com.ecommerce.bicicleta.repositories.OrderRepository;
 import com.ecommerce.bicicleta.repositories.ProductRepository;
 import com.ecommerce.bicicleta.repositories.UserRepository;
@@ -32,6 +33,9 @@ public class OrderService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
 
     public List<Order> findAll() {
@@ -73,6 +77,25 @@ public class OrderService {
         productRepository.saveAndFlush(product);
         return response;
     }
+
+    @Transactional
+    public List<String> updateCart(Order order, Long productId, String quantity) {
+        List<String> response = new ArrayList<>();
+        var items = order.getItems();
+        for(OrderItem item : items) {
+            var itemId = item.getProduct().getId();
+            if(itemId == productId) {
+                item.setQuantity(Integer.valueOf(quantity));
+                System.out.println("QUANTITY SET QUANTITY: "+item.getQuantity().toString());
+                response.add(item.getQuantity().toString());
+                response.add(item.getSubTotal().toString());
+                orderItemRepository.saveAndFlush(item);
+            }
+        }
+        response.add(order.getTotal().toString());
+        return response;
+    }
+
     public List<Order> findAllOrdersByUserId(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if(userOptional.isPresent()) {

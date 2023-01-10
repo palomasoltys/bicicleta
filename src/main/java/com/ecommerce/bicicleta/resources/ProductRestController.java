@@ -65,33 +65,14 @@ public class ProductRestController {
 
     @PostMapping("/cart/update-cart/{orderId}")
     public ResponseEntity<Object> updateCart(@PathVariable String orderId, @RequestBody Map<String, String> obj) {
-        List<String> response = new ArrayList<>();
         String quantity =  obj.get("quantity");
-        String price =  obj.get("price");
         String productId = obj.get("productId");
         Long productIdLong = Long.valueOf(productId);
-        Order order = orderService.findById(Long.valueOf(orderId));
-        var items = order.getItems();
-        for(OrderItem item : items) {
-            var itemId = item.getProduct().getId();
-            if(itemId == productIdLong) {
-                item.setQuantity(Integer.valueOf(quantity));
-                System.out.println("QUANTITY WHILE SET QUANTITY: "+item.getQuantity().toString());
-                response.add(item.getQuantity().toString());
-                response.add(item.getSubTotal().toString());
-            }
-        }
+        var order = orderService.findById(Long.valueOf(orderId));
+        var res = orderService.updateCart(order, productIdLong, quantity);
 
-        response.add(order.getTotal().toString());
-        for(OrderItem item: items) {
-            var itemId = item.getProduct().getId();
-            if(itemId == productIdLong) {
-                System.out.println("QUANTITY AFTER SET QUANTITY: "+item.getQuantity().toString());
-            }
-
-        }
         System.out.println("ORDER ID UPDATE-CART: "+orderId);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(res);
 
     }
 }
