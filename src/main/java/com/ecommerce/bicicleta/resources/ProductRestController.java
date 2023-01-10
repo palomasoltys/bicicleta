@@ -56,6 +56,8 @@ public class ProductRestController {
             Instant dateCreated = java.time.Clock.systemUTC().instant();
             // instantiate a new Order with the user and the datetime, and set the status to waiting payment
             OrderStatus orderStatus = OrderStatus.WAITING_PAYMENT;
+
+            //transactional and save and flush
             Order order = new Order(null, dateCreated, orderStatus, user);
             // then compare the quantity the user sent with the units in stock
             Integer qtyUserSent = cart.getQuantity();
@@ -63,6 +65,7 @@ public class ProductRestController {
             Integer unitsInStock = product.getUnitsInStock();
             //if less, subtract the quantity in the units in stock (database)
             if (qtyUserSent <= unitsInStock) {
+
                 product.setUnitsInStock(unitsInStock - qtyUserSent);
                 // and calculate the total of the cart (quantity * price)
                 Double subTotal = cart.getSubTotal(product.getPrice(), qtyUserSent);
@@ -91,12 +94,21 @@ public class ProductRestController {
             var itemId = item.getProduct().getId();
             if(itemId == productIdLong) {
                 item.setQuantity(Integer.valueOf(quantity));
+                System.out.println("QUANTITY WHILE SET QUANTITY: "+item.getQuantity().toString());
                 response.add(item.getQuantity().toString());
                 response.add(item.getSubTotal().toString());
             }
         }
-        response.add(order.getTotal().toString());
 
+        response.add(order.getTotal().toString());
+        for(OrderItem item: items) {
+            var itemId = item.getProduct().getId();
+            if(itemId == productIdLong) {
+                System.out.println("QUANTITY AFTER SET QUANTITY: "+item.getQuantity().toString());
+            }
+
+        }
+        System.out.println("ORDER ID UPDATE-CART: "+orderId);
         return ResponseEntity.ok().body(response);
 
     }

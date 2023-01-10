@@ -2,6 +2,8 @@ package com.ecommerce.bicicleta.resources;
 
 import com.ecommerce.bicicleta.dtos.OrderDto;
 import com.ecommerce.bicicleta.entities.Order;
+import com.ecommerce.bicicleta.entities.OrderItem;
+import com.ecommerce.bicicleta.entities.Product;
 import com.ecommerce.bicicleta.entities.User;
 import com.ecommerce.bicicleta.services.OrderService;
 import com.ecommerce.bicicleta.services.UserService;
@@ -55,7 +57,6 @@ public class OrderResource {
                 orderId = order.getId();
             }
         }
-        System.out.println("ORDER ID: "+orderId);
         model.addAttribute("orderId", orderId);
         model.addAttribute("user", user);
         model.addAttribute("orders", ordersInTheCart);
@@ -66,7 +67,21 @@ public class OrderResource {
     @GetMapping("/cart/checkout/{orderId}")
     public String checkoutOrdersInTheCart(@PathVariable long orderId, Model model) {
         var order = service.findById(orderId);
+        var items = order.getItems();
+        List<Product> products = new ArrayList<>();
+        for(OrderItem item : items) {
+            System.out.println("QUANTITY CHECKOUT: "+item.getQuantity());
+
+            products.add(item.getProduct());
+        }
         var user = order.getUser();
+        for(var p: products) {
+            model.addAttribute("productName", p.getName());
+            model.addAttribute("productDescription", p.getDescription());
+
+        }
+        System.out.println("ORDER ID CHECKOUT: "+orderId);
+        model.addAttribute("orders", order);
         model.addAttribute("user", user);
         return "checkout";
     }

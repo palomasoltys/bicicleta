@@ -39,13 +39,13 @@
 <h2>Checkout</h2>
 <div id="summary">
   <h3>Summary:</h3>
-  <p>Product name:</p>
-  <p>Product description:</p>
+  <p id="summary-product-name"><span th:text="${productName}"></span></p>
+  <p id="summary-product-description"><span th:text="${productDescription}"></span></p>
   <p>Product img:</p>
-  <p>Quantity: </p>
-  <p>Price: </p>
-  <p>Subtotal: </p>
-  <p>Total: </p>
+  <p id="summary-product-quantity">Quantity: </p>
+  <p id="summary-product-price">Price: </p>
+  <p id="summary-product-subtotal">Subtotal: </p>
+  <p id="summary-product-total">Total: </p>
 </div>
 
 <div id="shipping-information">
@@ -161,6 +161,6 @@
 
 
 
-
+<script src="/static/javascript/checkout.js" type="application/javascript"></script>
 </body>
 </html>

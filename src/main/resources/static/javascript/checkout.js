@@ -49,7 +49,6 @@ const handleSubmitRemoveItem = async (e) => {
     document.getElementById('order-total').innerText = responseArr[2];
 
 }
-
 const handleSubmitAddItem = async (e) => {
     let qty = updateCart("+");
     let obj = {
@@ -63,7 +62,7 @@ const handleSubmitAddItem = async (e) => {
         body: JSON.stringify(obj),
         headers: headers
     })
-    const responseArr = await response.json()
+    let responseArr = await response.json()
     console.log(responseArr)
 
 
@@ -78,10 +77,28 @@ const handleSubmitAddItem = async (e) => {
 const checkoutItemsBtn = document.getElementById('checkout-btn');
 
 const handleCheckoutItems = async (e) => {
+    console.log("CHECKOUT BUTTON ")
+    const urlOrders = 'http://localhost:8080/orders/cart'
+
+    console.log("ORDER ID CHECKOUT PAGE: "+orderId)
+//    const response = await fetch(`${urlOrders}/checkout?id=${orderId}`) {
+//  method: 'GET'
+//})
+//  .then(response => response.json())
+//  .then(data => {
+//    console.log(data);
+//  });
+
+//    document.getElementById('summary-product-price').innerText = document.getElementById('item-price').innerText;;
+//    document.getElementById('summary-product-quantity').innerText = responseArr[0];
+//    document.getElementById('summary-product-subtotal').innerText = responseArr[1];
+//    document.getElementById('summary-product-total').innerText = responseArr[2] ;
+
 
 
 }
 
+checkoutItemsBtn.addEventListener("click", handleCheckoutItems);
 removeItemBtn.addEventListener("click", handleSubmitRemoveItem);
 addItemBtn.addEventListener("click", handleSubmitAddItem);
 
