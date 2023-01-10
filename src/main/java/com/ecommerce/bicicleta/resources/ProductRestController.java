@@ -51,33 +51,15 @@ public class ProductRestController {
         } else {
             // if yes, get the user
             User user = userService.findById(Long.valueOf(userId));
-
-            // get the current datetime
-            Instant dateCreated = java.time.Clock.systemUTC().instant();
-            // instantiate a new Order with the user and the datetime, and set the status to waiting payment
-            OrderStatus orderStatus = OrderStatus.WAITING_PAYMENT;
-
-            //transactional and save and flush
-            Order order = new Order(null, dateCreated, orderStatus, user);
-            // then compare the quantity the user sent with the units in stock
-            Integer qtyUserSent = cart.getQuantity();
             Product product = service.findById(Long.valueOf(id));
-            Integer unitsInStock = product.getUnitsInStock();
-            //if less, subtract the quantity in the units in stock (database)
-            if (qtyUserSent <= unitsInStock) {
-
-                product.setUnitsInStock(unitsInStock - qtyUserSent);
-                // and calculate the total of the cart (quantity * price)
-                Double subTotal = cart.getSubTotal(product.getPrice(), qtyUserSent);
-                response.add(Integer.toString(qtyUserSent));
-                response.add(Double.toString(subTotal));
+            Integer qtyUserSent = cart.getQuantity();
+            var res = orderService.addItemToTheCart(product, qtyUserSent, cart, user);
+            System.out.println(res);
+            if(res.size()==1) {
+                return ResponseEntity.badRequest().body(res);
             } else {
-                //if not, send a bad request and in the js send an alert saying "we only have x left in stock"
-                response.add("We only have " + product.getUnitsInStock() + " left in stock");
-                return ResponseEntity.badRequest().body(response);
+                return ResponseEntity.ok().body(res);
             }
-
-            return ResponseEntity.ok().body(response);
         }
     }
 

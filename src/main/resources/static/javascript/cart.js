@@ -41,7 +41,7 @@ const handleSubmit = async (e) =>{
 console.log(document.cookie)
     const responseArr = await response.json()
     console.log(responseArr)
-//
+
     if (response.status === 200){
     console.log("WORKED")
     const yourCart = document.getElementById('your-cart')
@@ -50,6 +50,7 @@ console.log(document.cookie)
 
 
     } else if(response.status === 400) {
+    console.log(responseArr[0])
     window.alert(`${responseArr[0]}`)
     console.log("BAD REQUEST")
     }
