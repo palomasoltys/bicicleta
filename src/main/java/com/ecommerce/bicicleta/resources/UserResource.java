@@ -1,6 +1,7 @@
 package com.ecommerce.bicicleta.resources;
 
 import com.ecommerce.bicicleta.dtos.UserDto;
+import com.ecommerce.bicicleta.entities.Order;
 import com.ecommerce.bicicleta.entities.User;
 import com.ecommerce.bicicleta.services.OrderService;
 import com.ecommerce.bicicleta.services.UserService;
@@ -73,8 +74,13 @@ public class UserResource {
             model.addAttribute("cartSize", openCart.getItems().size());
         } else {
             model.addAttribute("cartSize", 0);
-
         }
+        var orders = user.getOrders();
+        boolean noOrders = orders.isEmpty();
+        var paidOrders = orderService.paidOrders(user);
+
+        model.addAttribute("paidOrders", paidOrders);
+        model.addAttribute("noOrders", noOrders);
         model.addAttribute("user", user);
         return "profile";
     }

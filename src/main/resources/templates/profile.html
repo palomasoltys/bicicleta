@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"><head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"><head>
   <meta charset="UTF-8">
   <title>Welcome to Bicicleta</title>
   <meta charset="UTF-8">
@@ -39,10 +39,13 @@
 </div>
 
 <div>
-  <div th:if="${user.orders == null}">
-    <p>You haven't ordered anything yet</p>
+  <div>
+    <h1>Welcome, <span th:text="${user.name}"></span></h1>
   </div>
-  <div th:each="order : ${user.orders}">
+  <div th:if="${noOrders == true}">
+    <p>You haven't ordered anything yet. Let's start shopping today.</p>
+  </div>
+  <div th:each="order : ${paidOrders}">
     <h2>Your Orders</h2>
     <p>Order Number: <span th:text="${order.id}"></span></p>
     <p>Date Created: <span th:text="${order.dateCreated}"></span></p>
@@ -50,8 +53,8 @@
     <div th:each="item : ${order.items}">
       <h3>Item</h3>
       <p>Quantity: <span th:text="${item.quantity}"></span></p>
-      <p>Price: <span th:text="${item.price}"></span></p>
-      <p>SubTotal: <span th:text="${item.subTotal}"></span></p>
+      <p>Price: $<span th:text="${item.price}"></span></p>
+      <p>SubTotal: $<span th:text="${item.subTotal}"></span></p>
       <div th:each="product : ${item.product}">
         <h4>Product</h4>
         <p>Product Name: <span th:text="${product.name}"></span></p>

@@ -53,6 +53,16 @@ public class OrderService {
 //        return obj.get();
 //    }
 
+    public List<Order> paidOrders(User user) {
+        List<Order> orders = user.getOrders();
+        List<Order> paidOrders = new ArrayList<>();
+        for(var order:orders){
+            if(order.getOrderStatus().getCode() > 1) {
+                paidOrders.add(order);
+            }
+        }
+        return paidOrders;
+    }
     public Order findOpenCart(User user) {
         // Check if the user already has an open cart
         Order openCart = orderRepository.findFirstByUserAndOrderStatus(user, OrderStatus.WAITING_PAYMENT.getCode());
