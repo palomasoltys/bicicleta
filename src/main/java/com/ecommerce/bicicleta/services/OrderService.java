@@ -11,15 +11,14 @@ import com.ecommerce.bicicleta.repositories.OrderRepository;
 import com.ecommerce.bicicleta.repositories.ProductRepository;
 import com.ecommerce.bicicleta.repositories.UserRepository;
 import jakarta.transaction.Transactional;
+import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,15 +46,56 @@ public class OrderService {
         return obj.get();
     }
 
-    @Transactional
-    public List<String> addItemToTheCart(Product product, int quantity, OrderItem cart, User user) {
-        List<String> response = new ArrayList<>();
-        // get the current datetime
-        Instant dateCreated = java.time.Clock.systemUTC().instant();
-        // instantiate a new Order with the user and the datetime, and set the status to waiting payment
-        OrderStatus orderStatus = OrderStatus.WAITING_PAYMENT;
+//    public OrderItem findOrderItemById(Long productId, Long orderId) {
+//        Optional<OrderItem> obj = orderItemRepository.findById(orderId);
+//        Optional<Product> product = productRepository.findById(productId);
+//
+//        return obj.get();
+//    }
 
-        Order order = new Order(null, dateCreated, orderStatus, user);
+
+    @Transactional
+    public void addToCart(User user, Product product, int quantity) {
+        // Check if the user already has an open cart
+        Order openCart = orderRepository.findFirstByUserAndOrderStatus(user, OrderStatus.WAITING_PAYMENT.getCode());
+        if (openCart != null) {
+//           var order = orderRepository.findById(openCart.getId());
+            Optional<Order> order = orderRepository.findOne(Specification.where(OrderSpecification.hasOrderStatus(OrderStatus.WAITING_PAYMENT)).and(OrderSpecification.hasUser(user)));
+            // Add the product and quantity to the existing cart
+            OrderItem orderItem = new OrderItem(order.get(),product, quantity,product.getPrice());
+            openCart.getItems().add(orderItem);
+            orderRepository.saveAndFlush(openCart);
+        } else {
+            // Create a new cart for the user
+            Order newCart = new Order();
+            newCart.setDateCreated(java.time.Clock.systemUTC().instant());
+            newCart.setUser(user);
+            newCart.setOrderStatus(OrderStatus.WAITING_PAYMENT);
+
+            // Add the product and quantity to the new cart
+            OrderItem orderItem = new OrderItem(newCart, product, quantity, product.getPrice());
+            Set<OrderItem> items = new HashSet<>();
+            items.add(orderItem);
+            for(var item : items) {
+                System.out.println("ADD TO CART ORDER SERVICE: "+item.getProduct().getName());
+            }
+            newCart.setItems(items);
+            // persist the new cart in the database
+            orderRepository.saveAndFlush(newCart);
+            orderItemRepository.saveAndFlush(orderItem);
+
+        }
+    }
+
+
+
+    @Transactional
+    public List<String> addItemToTheCart(Product product, int quantity, OrderItem cart, User user, Long orderId) {
+        Optional<Order> orderObj = orderRepository.findById(orderId);
+        System.out.println(orderObj.isPresent());
+
+        List<String> response = new ArrayList<>();
+
         // then compare the quantity the user sent with the units in stock
         Integer qtyUserSent = cart.getQuantity();
         Integer unitsInStock = product.getUnitsInStock();
@@ -70,10 +110,28 @@ public class OrderService {
         } else {
             //if not, send a bad request and in the js send an alert saying "we only have x left in stock"
             response.add("We only have " + product.getUnitsInStock() + " left in stock");
-//            return ResponseEntity.badRequest().body(response);
         }
 
-        orderRepository.saveAndFlush(order);
+        Set<OrderItem> items = new HashSet<>();
+        items.add(cart);
+
+        if(!orderObj.isPresent()) {
+            // get the current datetime
+            Instant dateCreated = java.time.Clock.systemUTC().instant();
+            // instantiate a new Order with the user and the datetime, and set the status to waiting payment
+            OrderStatus orderStatus = OrderStatus.WAITING_PAYMENT;
+            Order order = new Order(null, dateCreated, orderStatus, user);
+
+            order.setItems(items);
+            orderRepository.saveAndFlush(order);
+
+        } else {
+            Order order = orderObj.get();
+
+            order.setItems(items);
+            orderRepository.saveAndFlush(order);
+        }
+
         productRepository.saveAndFlush(product);
         return response;
     }

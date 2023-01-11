@@ -39,29 +39,51 @@ public class ProductRestController {
 
 
     @PostMapping("/cart/add-to-the-cart/{id}")
-    public ResponseEntity<List<String>> addToTheCart(@RequestBody OrderItem cart, @PathVariable String id, HttpSession session){
+    public ResponseEntity<List<String>> addToCart(@RequestBody Product product, @RequestParam("quantity") Integer quantity, HttpSession session) {
         List<String> response = new ArrayList<>();
-        //verify if the user is logged in by comparing the session
+        System.out.println("QUANTITY: "+quantity);
+        // Get the current user
         String userId = (String) session.getAttribute("user-id");
-        System.out.println("User Id: "+userId);
         // if not, return a bad request and redirect to the login page with an alert
-        if(userId == null) {
+        if (userId == null) {
             response.add("You need to log in to add items to your cart");
             return ResponseEntity.badRequest().body(response);
         } else {
             // if yes, get the user
             User user = userService.findById(Long.valueOf(userId));
-            Product product = service.findById(Long.valueOf(id));
-            Integer qtyUserSent = cart.getQuantity();
-            var res = orderService.addItemToTheCart(product, qtyUserSent, cart, user);
-            System.out.println(res);
-            if(res.size()==1) {
-                return ResponseEntity.badRequest().body(res);
-            } else {
-                return ResponseEntity.ok().body(res);
-            }
+            orderService.addToCart(user, product, quantity);
+            response.add("Item added to your cart");
+
+            return ResponseEntity.ok().body(response);
         }
     }
+
+//    @PostMapping("/cart/add-to-the-cart/{id}")
+//    public ResponseEntity<List<String>> addToTheCart(@RequestBody OrderItem cart, @PathVariable String id, HttpSession session){
+//        List<String> response = new ArrayList<>();
+//        //verify if the user is logged in by comparing the session
+//        String userId = (String) session.getAttribute("user-id");
+//        System.out.println("User Id: "+userId);
+//        // if not, return a bad request and redirect to the login page with an alert
+//        if(userId == null) {
+//            response.add("You need to log in to add items to your cart");
+//            return ResponseEntity.badRequest().body(response);
+//        } else {
+//            // if yes, get the user
+//            User user = userService.findById(Long.valueOf(userId));
+//            System.out.println("CART::::: "+cart.getProduct().getName());
+//            Long orderId = cart.getOrder().getId();
+//            Product product = service.findById(Long.valueOf(id));
+//            Integer qtyUserSent = cart.getQuantity();
+//            var res = orderService.addItemToTheCart(product, qtyUserSent, cart, user, orderId);
+//            System.out.println(res);
+//            if(res.size()==1) {
+//                return ResponseEntity.badRequest().body(res);
+//            } else {
+//                return ResponseEntity.ok().body(res);
+//            }
+//        }
+//    }
 
     @PostMapping("/cart/update-cart/{orderId}")
     public ResponseEntity<Object> updateCart(@PathVariable String orderId, @RequestBody Map<String, String> obj) {

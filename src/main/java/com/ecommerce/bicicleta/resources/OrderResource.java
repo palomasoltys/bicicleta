@@ -51,11 +51,19 @@ public class OrderResource {
         Long orderId = 0L;
         List<Order> ordersInTheCart = new ArrayList<>();
         for(Order order : user.getOrders()){
-            if(order.getOrderStatus().getCode() == 1){
+//            if(order.getOrderStatus().getCode() == 1){
+                System.out.println(order.getTotal());
+            System.out.println(order.getDateCreated().toString());
                 ordersInTheCart.add(order);
                 orderId = order.getId();
-            }
+//            }
         }
+        for(Order o : ordersInTheCart) {
+            System.out.println(o.getId());
+            System.out.println(o.getItems());
+        }
+        System.out.println(user.getName());
+
         model.addAttribute("orderId", orderId);
         model.addAttribute("user", user);
         model.addAttribute("orders", ordersInTheCart);
