@@ -2,6 +2,7 @@ package com.ecommerce.bicicleta.resources;
 
 import com.ecommerce.bicicleta.dtos.UserDto;
 import com.ecommerce.bicicleta.entities.User;
+import com.ecommerce.bicicleta.services.OrderService;
 import com.ecommerce.bicicleta.services.UserService;
 import com.sun.net.httpserver.HttpContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +28,8 @@ public class UserResource {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private OrderService orderService;
 
 
 
@@ -65,6 +68,13 @@ public class UserResource {
     @GetMapping(value = "/{id}")
     public String getOrdersByUserId(@PathVariable Long id, Model model) {
         User user = service.findById(id);
+        var openCart = orderService.findOpenCart(user);
+        if(openCart != null) {
+            model.addAttribute("cartSize", openCart.getItems().size());
+        } else {
+            model.addAttribute("cartSize", 0);
+
+        }
         model.addAttribute("user", user);
         return "profile";
     }

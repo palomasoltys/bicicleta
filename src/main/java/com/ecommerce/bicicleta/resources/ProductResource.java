@@ -73,6 +73,13 @@ public class ProductResource {
             model.addAttribute("user", null);
         } else {
             User user = userService.findById(Long.valueOf(userId));
+            var openCart = orderService.findOpenCart(user);
+            if(openCart != null) {
+                model.addAttribute("cartSize", openCart.getItems().size());
+            } else {
+                model.addAttribute("cartSize", 0);
+
+            }
             model.addAttribute("user", user);
         }
         Product product = service.findById(id);
@@ -87,6 +94,13 @@ public class ProductResource {
             model.addAttribute("user", null);
         } else {
             User user = userService.findById(Long.valueOf(userId));
+            var openCart = orderService.findOpenCart(user);
+            if(openCart != null) {
+                model.addAttribute("cartSize", openCart.getItems().size());
+            } else {
+                model.addAttribute("cartSize", 0);
+
+            }
             model.addAttribute("user", user);
         }
         category = category.replaceAll("-", " ");
