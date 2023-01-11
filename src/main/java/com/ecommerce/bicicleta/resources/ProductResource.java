@@ -27,6 +27,7 @@ public class ProductResource {
     @Autowired
     private UserService userService;
 
+
 //    @RequestMapping
 //    public String getHomePage()
 //    {

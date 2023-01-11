@@ -36,6 +36,9 @@
   <a href="/products/category/ebike">E-Bike</a>
 </div>
 <h2>Your Shopping Cart</h2>
+<div th:if="${orderId == 0}">
+  <p>Your cart is empty. Let's shop?</p>
+</div>
 <div th:each="order : ${orders}">
   <p hidden th:text="${order.id}" id="order-id"></p>
   <div th:each="item : ${order.items}">
@@ -56,9 +59,11 @@
   </div>
 </div>
 <div th:if="${user != null}">
+  <div th:if="${orderId != 0}">
   <a th:href="@{/orders/cart/checkout/{id}(id=${orderId})}">
     <button id="checkout-btn">Checkout</button>
   </a>
+    </div>
 </div>
 
 <script src="/static/javascript/checkout.js" type="application/javascript"></script>
