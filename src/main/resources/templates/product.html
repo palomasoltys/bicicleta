@@ -40,7 +40,7 @@
       <a href="/products/category/ebike">E-Bike</a>
     </div>
     <div th:if="${user != null}">
-      <a th:href="@{/orders/cart/user/{id}(id=${user.id})}">Your Cart[<span th:text="${cartSize}"></span>]</a>
+      <a th:href="@{/orders/cart/user/{id}(id=${user.id})}" id="your-cart">Your Cart[<span th:text="${cartSize}"></span>]</a>
     </div>
     <div>
       <form>

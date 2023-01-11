@@ -41,7 +41,6 @@ public class ProductRestController {
     @PostMapping("/cart/add-to-the-cart/{id}")
     public ResponseEntity<List<String>> addToCart(@RequestBody Product product, @RequestParam("quantity") Integer quantity, HttpSession session) {
         List<String> response = new ArrayList<>();
-        System.out.println("QUANTITY: "+quantity);
         // Get the current user
         String userId = (String) session.getAttribute("user-id");
         // if not, return a bad request and redirect to the login page with an alert
@@ -52,6 +51,7 @@ public class ProductRestController {
             // if yes, get the user
             User user = userService.findById(Long.valueOf(userId));
             orderService.addToCart(user, product, quantity);
+            response.add(quantity.toString());
             response.add("Item added to your cart");
 
             return ResponseEntity.ok().body(response);

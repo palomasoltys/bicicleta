@@ -38,9 +38,9 @@ const handleSubmit = async (e) => {
 
     if (response.status === 200){
     console.log("WORKED")
-    const yourCart = document.getElementById('your-cart')
+
     window.alert(`${productName.innerText} was added to your cart.`)
-//    yourCart.innerText = `Your Cart (${responseArr[0]} items)`
+    document.getElementById('your-cart').innerText = `Your Cart[${responseArr[0]}])`
 
 
     } else if(response.status === 400) {
