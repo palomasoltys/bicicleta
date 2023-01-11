@@ -2,6 +2,7 @@ package com.ecommerce.bicicleta.resources;
 
 import com.ecommerce.bicicleta.entities.Product;
 import com.ecommerce.bicicleta.entities.User;
+import com.ecommerce.bicicleta.services.OrderService;
 import com.ecommerce.bicicleta.services.ProductService;
 import com.ecommerce.bicicleta.services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -27,6 +28,8 @@ public class ProductResource {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private OrderService orderService;
 
 //    @RequestMapping
 //    public String getHomePage()
@@ -47,9 +50,17 @@ public class ProductResource {
             model.addAttribute("user", null);
         } else {
             User user = userService.findById(Long.valueOf(userId));
+            var openCart = orderService.findOpenCart(user);
+            if(openCart != null) {
+                model.addAttribute("cartSize", openCart.getItems().size());
+            } else {
+                model.addAttribute("cartSize", 0);
+
+            }
             model.addAttribute("user", user);
         }
         List<Product> listProducts = service.findAll();
+
         model.addAttribute("listProducts", listProducts);
         return "home";
     }

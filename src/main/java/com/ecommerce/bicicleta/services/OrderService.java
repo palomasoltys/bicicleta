@@ -53,6 +53,11 @@ public class OrderService {
 //        return obj.get();
 //    }
 
+    public Order findOpenCart(User user) {
+        // Check if the user already has an open cart
+        Order openCart = orderRepository.findFirstByUserAndOrderStatus(user, OrderStatus.WAITING_PAYMENT.getCode());
+        return openCart;
+    }
 
     @Transactional
     public void addToCart(User user, Product product, int quantity) {
