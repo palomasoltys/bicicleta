@@ -16,7 +16,7 @@ const urlSubmit = 'http://localhost:8080/orders/cart/checkout'
 console.log(submitOrderBtn);
 const handleSubmitOrder = async (e) => {
     e.preventDefault()
-console.log("TESTE")
+
     const addressObj = {
         address: address,
         city: city,
@@ -25,13 +25,14 @@ console.log("TESTE")
         country: country
     }
 
-    const response = await fetch(`${urlSubmit}/submit/${orderId}`, {
+    const responseAddress = await fetch(`${urlSubmit}/submit/${orderId}`, {
         method: "POST",
         body: JSON.stringify(addressObj),
         headers: header
     })
-    let responseArr = await response.json()
-    console.log(responseArr)
+    let responseAddressArr = await responseAddress.json()
+    console.log(responseAddressArr)
+
 }
 submitOrderBtn.addEventListener("click", handleSubmitOrder);
 

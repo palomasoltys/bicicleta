@@ -1,15 +1,9 @@
 package com.ecommerce.bicicleta.services;
 
 import com.ecommerce.bicicleta.dtos.OrderDto;
-import com.ecommerce.bicicleta.entities.Order;
-import com.ecommerce.bicicleta.entities.OrderItem;
-import com.ecommerce.bicicleta.entities.Product;
-import com.ecommerce.bicicleta.entities.User;
+import com.ecommerce.bicicleta.entities.*;
 import com.ecommerce.bicicleta.entities.enums.OrderStatus;
-import com.ecommerce.bicicleta.repositories.OrderItemRepository;
-import com.ecommerce.bicicleta.repositories.OrderRepository;
-import com.ecommerce.bicicleta.repositories.ProductRepository;
-import com.ecommerce.bicicleta.repositories.UserRepository;
+import com.ecommerce.bicicleta.repositories.*;
 import jakarta.transaction.Transactional;
 import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +30,9 @@ public class OrderService {
     @Autowired
     private OrderItemRepository orderItemRepository;
 
+    @Autowired
+    private PaymentRepository paymentRepository;
+
 
     public List<Order> findAll() {
         return orderRepository.findAll();
@@ -52,6 +49,14 @@ public class OrderService {
 //
 //        return obj.get();
 //    }
+
+    @Transactional
+    public Payment savePayment(Payment payment, Order order) {
+        order.setOrderStatus(OrderStatus.PAID);
+        orderRepository.saveAndFlush(order);
+        return paymentRepository.saveAndFlush(payment);
+    }
+
 
     public List<Order> paidOrders(User user) {
         List<Order> orders = user.getOrders();
