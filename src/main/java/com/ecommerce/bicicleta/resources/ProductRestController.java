@@ -1,21 +1,13 @@
 package com.ecommerce.bicicleta.resources;
 
-import com.ecommerce.bicicleta.dtos.UserDto;
-import com.ecommerce.bicicleta.entities.Order;
-import com.ecommerce.bicicleta.entities.OrderItem;
+
 import com.ecommerce.bicicleta.entities.Product;
 import com.ecommerce.bicicleta.entities.User;
-import com.ecommerce.bicicleta.entities.enums.OrderStatus;
-import com.ecommerce.bicicleta.repositories.UserRepository;
+
 import com.ecommerce.bicicleta.services.OrderService;
 import com.ecommerce.bicicleta.services.ProductService;
 import com.ecommerce.bicicleta.services.UserService;
-
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import jakarta.servlet.http.HttpSession;
-import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

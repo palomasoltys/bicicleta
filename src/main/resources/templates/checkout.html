@@ -52,10 +52,10 @@
   </div>
   <div>
     <div>Total : $<span th:text="${orders.total}"></span></div>
-
+</div>
 <div id="shipping-information">
   <h3>Shipping Information</h3>
-  <form>
+  <form id="submit-shipping-form">
     <div>
       <label for="address">Address</label>
       <input type="text" name="address" id="address">
@@ -135,7 +135,7 @@
 <div id="payment">
   <h3>Payment</h3>
   <p>We accept Visa, Mastercard, Amex and Discover</p>
-  <form>
+  <form id="submit-payment-form">
     <div>
     <label for="card-number">Card Number</label>
     <input type="text" name="card-number" id="card-number">
@@ -157,15 +157,17 @@
 
 <div>
   <h3>Order Contact</h3>
-  <form>
+  <form id="submit-contact-form">
     <label for="email">Email</label>
     <input type="text" name="email" id="email">
   </form>
 </div>
-<button type="submit" id="submit-order-btn">Submit Order</button>
+<button id="submit-order-btn">Submit Order</button>
 
 
 
 <script async src="/static/javascript/checkout.js" type="application/javascript"></script>
+<script async src="/static/javascript/submit-order.js" type="application/javascript"></script>
+</div>
 </body>
 </html>

@@ -1,7 +1,9 @@
 package com.ecommerce.bicicleta.services;
 
 import com.ecommerce.bicicleta.dtos.UserDto;
+import com.ecommerce.bicicleta.entities.Address;
 import com.ecommerce.bicicleta.entities.User;
+import com.ecommerce.bicicleta.repositories.AddressRepository;
 import com.ecommerce.bicicleta.repositories.UserRepository;
 import com.ecommerce.bicicleta.services.exceptions.DatabaseException;
 import com.ecommerce.bicicleta.services.exceptions.ResourceNotFoundException;
@@ -10,6 +12,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -27,6 +30,9 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private AddressRepository addressRepository;
+
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -40,6 +46,11 @@ public class UserService {
         return response;
     }
 
+    @Transactional
+    public Address saveAddress(Address address, User user) {
+        address.setUser(user);
+        return addressRepository.saveAndFlush(address);
+    }
     public LoginResponse userLogin(UserDto userDto) {
         System.out.println(userDto);
         LoginResponse response = new LoginResponse();

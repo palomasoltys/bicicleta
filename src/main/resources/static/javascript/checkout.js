@@ -135,6 +135,9 @@ const checkoutItemsBtn = document.getElementById('checkout-btn');
 
 
 //checkoutItemsBtn.addEventListener("click", handleCheckoutItems);
+if(removeItemBtn != null) {
 removeItemBtn.addEventListener("click", handleSubmitRemoveItem);
+}
+if(addItemBtn != null) {
 addItemBtn.addEventListener("click", handleSubmitAddItem);
-
+}
