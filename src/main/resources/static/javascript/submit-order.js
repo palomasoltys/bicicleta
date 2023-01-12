@@ -30,8 +30,16 @@ const handleSubmitOrder = async (e) => {
         body: JSON.stringify(addressObj),
         headers: header
     })
+
     let responseAddressArr = await responseAddress.json()
     console.log(responseAddressArr)
+
+    const responsePayment = await fetch(`${urlSubmit}/submit/payment/${orderId}`, {
+        method: "POST",
+        headers: header
+    })
+    let responsePaymentArr = await responsePayment.json()
+    console.log(responsePaymentArr)
 
 }
 submitOrderBtn.addEventListener("click", handleSubmitOrder);
