@@ -1,12 +1,8 @@
 package com.ecommerce.bicicleta.resources;
 
-import com.ecommerce.bicicleta.dtos.UserDto;
-import com.ecommerce.bicicleta.entities.Order;
 import com.ecommerce.bicicleta.entities.User;
 import com.ecommerce.bicicleta.services.OrderService;
 import com.ecommerce.bicicleta.services.UserService;
-import com.sun.net.httpserver.HttpContext;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

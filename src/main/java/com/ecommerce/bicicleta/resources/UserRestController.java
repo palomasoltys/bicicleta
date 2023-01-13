@@ -3,8 +3,6 @@ package com.ecommerce.bicicleta.resources;
 import com.ecommerce.bicicleta.dtos.UserDto;
 import com.ecommerce.bicicleta.services.LoginResponse;
 import com.ecommerce.bicicleta.services.UserService;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;

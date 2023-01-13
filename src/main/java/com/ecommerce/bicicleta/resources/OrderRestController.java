@@ -2,9 +2,7 @@ package com.ecommerce.bicicleta.resources;
 
 import com.ecommerce.bicicleta.entities.Address;
 import com.ecommerce.bicicleta.entities.Payment;
-import com.ecommerce.bicicleta.entities.Product;
 import com.ecommerce.bicicleta.entities.User;
-import com.ecommerce.bicicleta.repositories.PaymentRepository;
 import com.ecommerce.bicicleta.services.OrderService;
 import com.ecommerce.bicicleta.services.ProductService;
 import com.ecommerce.bicicleta.services.UserService;

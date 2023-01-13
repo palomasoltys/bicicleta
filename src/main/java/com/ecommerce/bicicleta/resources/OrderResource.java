@@ -1,8 +1,7 @@
 package com.ecommerce.bicicleta.resources;
 
 import com.ecommerce.bicicleta.entities.Order;
-import com.ecommerce.bicicleta.entities.OrderItem;
-import com.ecommerce.bicicleta.entities.Product;
+
 import com.ecommerce.bicicleta.entities.User;
 import com.ecommerce.bicicleta.services.OrderService;
 import com.ecommerce.bicicleta.services.UserService;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/orders")

@@ -1,9 +1,7 @@
 package com.ecommerce.bicicleta.services;
 
 import com.ecommerce.bicicleta.entities.Product;
-import com.ecommerce.bicicleta.entities.User;
 import com.ecommerce.bicicleta.repositories.ProductRepository;
-import com.ecommerce.bicicleta.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
