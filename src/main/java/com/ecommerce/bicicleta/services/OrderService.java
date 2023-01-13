@@ -115,22 +115,19 @@ public class OrderService {
 
     @Transactional
     @Scheduled(cron = "0 0 3 * * *")
-    public void removeExpiredItems(Order order) {
-        System.out.println("PRIOR TO REMOVE: "+order.getOrderStatus());
+    public void removeExpiredItems() {
         Instant now = Instant.now();
         if(order.getOrderStatus().getCode() == 1){
             for (Iterator<OrderItem> iterator = order.getItems().iterator(); iterator.hasNext(); ) {
                 OrderItem item = iterator.next();
                 Duration duration = Duration.between(order.getDateCreated(), now);
                 if (duration.toHours() > 24) {
-                    order.setOrderStatus(OrderStatus.CANCELED);
                     iterator.remove();
                 }
             }
 
             orderRepository.saveAndFlush(order);
         }
-        System.out.println("AFTER REMOVING IT: "+order.getOrderStatus());
     }
 
     @Transactional
