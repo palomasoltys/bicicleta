@@ -9,8 +9,10 @@ import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -33,6 +35,10 @@ public class OrderService {
     @Autowired
     private PaymentRepository paymentRepository;
 
+    private Order order;
+    public void setOrder(Order order){
+        this.order=order;
+    }
 
     public List<Order> findAll() {
         return orderRepository.findAll();
@@ -107,7 +113,25 @@ public class OrderService {
         }
     }
 
+    @Transactional
+    @Scheduled(cron = "0 0 3 * * *")
+    public void removeExpiredItems(Order order) {
+        System.out.println("PRIOR TO REMOVE: "+order.getOrderStatus());
+        Instant now = Instant.now();
+        if(order.getOrderStatus().getCode() == 1){
+            for (Iterator<OrderItem> iterator = order.getItems().iterator(); iterator.hasNext(); ) {
+                OrderItem item = iterator.next();
+                Duration duration = Duration.between(order.getDateCreated(), now);
+                if (duration.toHours() > 24) {
+                    order.setOrderStatus(OrderStatus.CANCELED);
+                    iterator.remove();
+                }
+            }
 
+            orderRepository.saveAndFlush(order);
+        }
+        System.out.println("AFTER REMOVING IT: "+order.getOrderStatus());
+    }
 
     @Transactional
     public List<String> addItemToTheCart(Product product, int quantity, OrderItem cart, User user, Long orderId) {
