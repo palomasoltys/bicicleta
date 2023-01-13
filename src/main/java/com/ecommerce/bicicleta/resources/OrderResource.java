@@ -6,6 +6,7 @@ import com.ecommerce.bicicleta.entities.Product;
 import com.ecommerce.bicicleta.entities.User;
 import com.ecommerce.bicicleta.services.OrderService;
 import com.ecommerce.bicicleta.services.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -80,10 +81,20 @@ public class OrderResource {
         if(order.getOrderStatus().getCode() == 1) {
             model.addAttribute("orders", order);
 
-
         }
         return "checkout";
     }
 
+    @GetMapping("/thank-you")
+    public String thankYouPage(HttpSession session, Model model) {
+        String userId = (String) session.getAttribute("user-id");
+        if (userId == null) {
+            model.addAttribute("user", null);
+        } else {
+            User user = userService.findById(Long.valueOf(userId));
+            model.addAttribute("user", user);
+        }
+        return "thank-you";
+    }
 
 }

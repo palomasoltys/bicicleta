@@ -1,6 +1,5 @@
 let url = window.location.href;
 let orderId = url.substring(url.lastIndexOf('/') + 1);
-console.log("CHECK")
 const submitOrderBtn = document.getElementById('submit-order-btn');
 const address = document.getElementById('address').innerText;
 const city = document.getElementById('city').innerText;
@@ -40,6 +39,7 @@ const handleSubmitOrder = async (e) => {
     })
     let responsePaymentArr = await responsePayment.json()
     console.log(responsePaymentArr)
+    window.location.replace("http://localhost:8080/orders/thank-you")
 
 }
 submitOrderBtn.addEventListener("click", handleSubmitOrder);
