@@ -58,12 +58,12 @@ public class ProductResource {
             model.addAttribute("user", user);
         }
 
-        if(sortOrder == null) {
+        if(sortOrder == null || sortOrder.equals("-")) {
             model.addAttribute("listProducts", service.findAll());
         }
          else if(sortOrder.equals("asc")) {
             model.addAttribute("listProducts", service.findAllByOrderByPriceAsc());
-        } else {
+        } else{
             model.addAttribute("listProducts", service.findAllByOrderByPriceDesc());
         }
 
@@ -93,7 +93,7 @@ public class ProductResource {
     }
 
     @GetMapping(value = "/products/category/{category}")
-    public String findByCategory(@PathVariable String category, Model model, HttpSession session) {
+    public String findByCategory(@PathVariable String category, @RequestParam(name = "sort-order", required = false) String sortOrder, Model model, HttpSession session) {
         String userId = (String) session.getAttribute("user-id");
         if(userId == null) {
             model.addAttribute("user", null);
@@ -108,8 +108,9 @@ public class ProductResource {
             }
             model.addAttribute("user", user);
         }
+        model.addAttribute("category", category);
         category = category.replaceAll("-", " ");
-        List<Product> product = service.findByCategory(category);
+        List<Product> product = service.findByCategory(category, sortOrder);
         if(product.isEmpty()) {
             model.addAttribute("products", "NoData");
         } else {
