@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -40,8 +41,8 @@ public class ProductResource {
 //        return ResponseEntity.ok().body(list);
 //    }
 
-    @GetMapping
-    public String listAll(Model model, HttpSession session) {
+    @GetMapping()
+    public String listAll(@RequestParam(name = "sort-order", required = false) String sortOrder, Model model, HttpSession session) {
         String userId = (String) session.getAttribute("user-id");
         if(userId == null) {
             model.addAttribute("user", null);
@@ -56,9 +57,16 @@ public class ProductResource {
             }
             model.addAttribute("user", user);
         }
-        List<Product> listProducts = service.findAll();
 
-        model.addAttribute("listProducts", listProducts);
+        if(sortOrder == null) {
+            model.addAttribute("listProducts", service.findAll());
+        }
+         else if(sortOrder.equals("asc")) {
+            model.addAttribute("listProducts", service.findAllByOrderByPriceAsc());
+        } else {
+            model.addAttribute("listProducts", service.findAllByOrderByPriceDesc());
+        }
+
         return "home";
     }
 

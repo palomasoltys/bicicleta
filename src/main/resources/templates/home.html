@@ -47,6 +47,14 @@
             <input type="submit" value="Search">
         </form>
     </div>
+    <form method="GET" action="/">
+        <label for="sort-order">Filter:</label>
+        <select name="sort-order" id="sort-order">
+            <option value="asc" th:selected="${sortOrder == 'asc'}">Low to high</option>
+            <option value="desc" th:selected="${sortOrder == 'desc'}">High to low</option>
+        </select>
+        <button type="submit">Apply</button>
+    </form>
     <div>
         <tr th:each="product: ${listProducts}">
 
