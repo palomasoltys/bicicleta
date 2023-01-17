@@ -42,12 +42,7 @@
     <div th:if="${user != null}">
       <a th:href="@{/orders/cart/user/{id}(id=${user.id})}" id="your-cart">Your Cart[<span th:text="${cartSize}"></span>]</a>
     </div>
-    <div>
-      <form>
-        <input type="text" id="search-item" name="search-item" placeholder="Search for a specific item">
-        <input type="submit" value="Search">
-      </form>
-    </div>
+
   </div>
       <div>
         <form id="add-to-cart-form" action="/add-to-the-cart" method="post">
