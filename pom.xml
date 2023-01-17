@@ -60,6 +60,12 @@
 			<artifactId>spring-security-core</artifactId>
 			<version>5.7.3</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<version>3.0.0</version>
+		</dependency>
 
 	</dependencies>
 

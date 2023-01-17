@@ -49,7 +49,7 @@ public class TestConfig implements CommandLineRunner {
 
         productRepository.saveAll(Arrays.asList(p1, p2, p3));
 
-        User u1 = new User(null, "paloma@gmail.com", "123456", "Paloma");
+        User u1 = new User(null, "pfs601@gmail.com", "123456", "Paloma");
         User u2 = new User(null, "nick@gmail.com", "654321", "Nick");
         User u3 = new User(null, "bal@gmail.com", "123", "Bal");
 
