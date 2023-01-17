@@ -57,18 +57,27 @@ public class OrderRestController {
         System.out.println(response.toString());
         var userEmail = order.getUser().getEmail();
         var userName = order.getUser().getName();
-        var summary = new ArrayList<>();
+        String productName = "";
+        Double productPrice = 0.0;
+        Integer qty = 0;
+        Double subtotal = 0.0;
+        Double total = 0.0;
+
         for(var x : order.getItems()){
-            summary.add(x.getProduct().getName());
-            summary.add(x.getProduct().getPrice());
-            summary.add(x.getQuantity());
-            summary.add(x.getSubTotal());
-            summary.add(x.getOrder().getTotal());
+            productName = x.getProduct().getName();
+            productPrice = x.getProduct().getPrice();
+            qty = x.getQuantity();
+            subtotal = x.getSubTotal();
+            total = x.getOrder().getTotal();
         }
         String subject = "We've received your order. #"+orderId;
-        String body = "<h1>"+userName+", just letting you know we've got your order.</h1><br> <h2>We'll send you an confirmation as soon as we send it.</h2><br> " +
-                "<h2>Thank you for shopping with us.</h2><br>" +
-                "<h2>Here is your summary:</h2><br> "+summary.toString();
+        String body = "<h1>"+userName+", just letting you know we've got your order.</h1><br> <h2>We'll send you an confirmation as soon as we send it.</h2> " +
+                "<h2>Thank you for shopping with us.</h2>" +
+                "<h2>Here is your summary:</h2> "+
+                "<p>"+productName+"</p>" +
+                "<p>Qty: "+qty+"x | Price: $"+productPrice+"</p>" +
+                "<p>Subtotal: $"+subtotal+"</p>" +
+                "<p>Total: $"+total+"</p>";
         emailService.sendHtmlEmail(userEmail,subject, body);
 
         return ResponseEntity.ok().body(response);
