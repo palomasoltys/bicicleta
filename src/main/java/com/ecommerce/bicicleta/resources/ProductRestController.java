@@ -50,6 +50,18 @@ public class ProductRestController {
         }
     }
 
+    @GetMapping("/test")
+    public ResponseEntity<List<Product>> getAllProductsSortedByPriceAsc() {
+        var products = service.findAllByOrderByPriceAsc();
+        return ResponseEntity.ok().body(products);
+    }
+
+    @GetMapping("/test/2")
+    public ResponseEntity<List<Product>> getAllProductsSortedByPriceDesc() {
+        var products = service.findAllByOrderByPriceDesc();
+        return ResponseEntity.ok().body(products);
+    }
+
 //    @PostMapping("/cart/add-to-the-cart/{id}")
 //    public ResponseEntity<List<String>> addToTheCart(@RequestBody OrderItem cart, @PathVariable String id, HttpSession session){
 //        List<String> response = new ArrayList<>();

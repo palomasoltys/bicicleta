@@ -34,4 +34,12 @@ public class ProductService {
         }
         return objByCategory;
     }
+
+    public List<Product> findAllByOrderByPriceAsc() {
+        return productRepository.findAllByOrderByPriceAsc();
+    }
+
+    public List<Product> findAllByOrderByPriceDesc() {
+        return productRepository.findAllByOrderByPriceDesc();
+    }
 }
