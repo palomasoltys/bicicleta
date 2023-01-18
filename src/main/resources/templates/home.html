@@ -37,14 +37,14 @@
         </div>
     </div>
     <div class="container-fluid full-content">
-    <div class="logo-div">
-        <img src="/static/css/img/b-logo.png" class="logo">
-    </div>
-    <div class="text-center div-category">
-        <a href="/products/category/mountain-bike" class="category">Mountain Bike</a>
-        <a href="/products/category/gravel-bike" class="category">Gravel Bike</a>
-        <a href="/products/category/ebike" class="category">E-Bike</a>
-    </div>
+        <div class="logo-div">
+            <img src="/static/css/img/b-logo.png" class="logo">
+        </div>
+        <div class="text-center div-category">
+            <a href="/products/category/mountain-bike" class="category">Mountain Bike</a>
+            <a href="/products/category/gravel-bike" class="category">Gravel Bike</a>
+            <a href="/products/category/ebike" class="category">E-Bike</a>
+        </div>
         <div th:if="${user != null}">
             <a th:href="@{/orders/cart/user/{id}(id=${user.id})}">Your Cart[<span th:text="${cartSize}"></span>]</a>
         </div>
