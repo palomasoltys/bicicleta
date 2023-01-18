@@ -112,3 +112,48 @@ padding-bottom: 25px;
    clear: left;
    border-bottom: 1px solid #000;
 }
+
+/*LOGIN*/
+.section-login {
+    background-color: #dad7cd;
+    background: rgba(218, 215, 205, 0.7); /* translucent */
+    border-radius: 5px;
+    width: 400px;
+    height: 400px;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    /* border: 1px solid #ffffff; */
+    padding: 10px;
+    display: flex;
+
+}
+
+.login-inner-page {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.logo-login {
+width: 35%
+}
+
+.login-p{
+text-align: center;
+}
+
+.btn-login {
+    background: #344e41;
+    color: white;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    width: 65%;
+}
+
+.login-input {
+width: 65%;
+}

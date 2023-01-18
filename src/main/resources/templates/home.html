@@ -33,6 +33,9 @@
             <a th:href="@{/users/{id}(id=${user.id})}">Profile</a>
         </div>
         <div th:if="${user != null}" class="nav-el">
+            <a th:href="@{/orders/cart/user/{id}(id=${user.id})}">Your Cart[<span th:text="${cartSize}"></span>]</a>
+        </div>
+        <div th:if="${user != null}" class="nav-el">
             <a href="/users/logout">Log Out</a>
         </div>
     </div>
@@ -45,10 +48,6 @@
             <a href="/products/category/gravel-bike" class="category">Gravel Bike</a>
             <a href="/products/category/ebike" class="category">E-Bike</a>
         </div>
-        <div th:if="${user != null}">
-            <a th:href="@{/orders/cart/user/{id}(id=${user.id})}">Your Cart[<span th:text="${cartSize}"></span>]</a>
-        </div>
-
         <div class="container">
             <form method="GET" action="/" class="filter-form">
                 <label for="sort-order">Filter:</label>
