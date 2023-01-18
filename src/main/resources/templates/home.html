@@ -63,7 +63,7 @@
                 <tr th:each="product: ${listProducts}">
                     <div class="col-sm-4 product">
                             <p><td th:text="${product.name}" /></p>
-                            <p>$<td th:text="${product.price}" /></p>
+                            <p class="p-price">$<td th:text="${product.price}" /></p>
                            <img th:src="${product.imgUrl}" class="product-img">
                         <p class="clear"><a th:href="@{/products/{id}(id=${product.id})}">See more</a></p>
                     </div>

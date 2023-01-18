@@ -21,7 +21,7 @@ body {
     background-color: #dad7cd;
     display: flex;
     justify-content: flex-end;
-    margin-right: 10px;
+    padding-right: 10px;
     height: 40px;
     align-items: center;
 }
@@ -63,6 +63,10 @@ img.logo{
     color: #dad7cd;
 }
 
+a {
+color: #344e41;
+}
+
 a:hover {
     color: #a3b18a;
 }
@@ -70,6 +74,11 @@ a:hover {
 .product-img {
     width: 80%;
     float: left;
+
+}
+
+.p-price {
+    font-weight: bolder;
 
 }
 
@@ -101,4 +110,5 @@ padding-bottom: 25px;
 
 .clear {
    clear: left;
+   border-bottom: 1px solid #000;
 }
