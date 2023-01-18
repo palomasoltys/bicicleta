@@ -68,18 +68,37 @@ a:hover {
 }
 
 .product-img {
-    width: 100%;
+    width: 80%;
+    float: left;
+
 }
 
 .div-img {
     width: 80%;
-    background-color: white;
+    height: 80%;
+    background-color: blue;
+    border: solid 2px red;
+}
+
+.product {
+padding-left: 30px;
+padding-right: 30px;
 }
 
 .container {
     background-color: white;
+    border-radius: 10px;
 }
 
 .div-category {
 padding-bottom: 35px;
+}
+
+.filter-form {
+padding-top: 10px;
+padding-bottom: 25px;
+}
+
+.clear {
+   clear: left;
 }

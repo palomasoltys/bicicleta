@@ -50,7 +50,7 @@
         </div>
 
         <div class="container">
-            <form method="GET" action="/">
+            <form method="GET" action="/" class="filter-form">
                 <label for="sort-order">Filter:</label>
                 <select name="sort-order" id="sort-order">
                     <option value="-" selected>-</option>
@@ -61,11 +61,11 @@
             </form>
             <div class="row">
                 <tr th:each="product: ${listProducts}">
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 product">
                             <p><td th:text="${product.name}" /></p>
                             <p>$<td th:text="${product.price}" /></p>
-                            <div class="div-img"><img th:src="${product.imgUrl}" class="product-img"></div>
-                        <p><a th:href="@{/products/{id}(id=${product.id})}">See more</a></p>
+                           <img th:src="${product.imgUrl}" class="product-img">
+                        <p class="clear"><a th:href="@{/products/{id}(id=${product.id})}">See more</a></p>
                     </div>
                 </tr>
             </div>
