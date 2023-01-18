@@ -1,0 +1,85 @@
+body {
+  height: 100vh;
+  background: url("/static/css/img/bg.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: 'Noto Serif Toto', serif;
+  color: black;
+
+}
+
+.full-content {
+    width: inherit;
+    min-height: 100vh;
+    background-color: black;
+    background: rgba(0, 0, 0, 0.8);    /* translucent */
+}
+
+.nav-bar {
+    background-color: #dad7cd;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+    height: 40px;
+    align-items: center;
+}
+
+.nav-bar a {
+    color: #344e41;
+}
+
+.nav-el {
+    margin-right: 10px;
+}
+
+.home {
+    margin-right: auto;
+    padding-left: 10px;
+}
+
+.logo {
+width: 10%;
+    display: block;
+    margin: 0 auto;
+}
+
+.logo-div
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 8px;
+}
+
+img.logo{
+    display: block;
+    margin: 0 auto;
+}
+
+.category {
+    padding: 10px;
+    color: #dad7cd;
+}
+
+a:hover {
+    color: #a3b18a;
+}
+
+.product-img {
+    width: 100%;
+}
+
+.div-img {
+    width: 80%;
+    background-color: white;
+}
+
+.container {
+    background-color: white;
+}
+
+.div-category {
+padding-bottom: 35px;
+}
