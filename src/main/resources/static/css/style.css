@@ -113,7 +113,7 @@ padding-bottom: 25px;
    border-bottom: 1px solid #000;
 }
 
-/*LOGIN*/
+/*LOGIN AND REGISTER*/
 .section-login {
     background-color: #dad7cd;
     background: rgba(218, 215, 205, 0.7); /* translucent */
@@ -157,3 +157,53 @@ text-align: center;
 .login-input {
 width: 65%;
 }
+
+/*PRODUCT PAGE*/
+#product-name {
+padding-top: 20px;
+font-weight: bold;
+padding-left: 20px;
+
+}
+
+#product-description {
+width: 75%;
+padding-left: 20px;
+}
+
+#product-url {
+padding-top: 20px;
+padding-right: 10px;
+width: 110% !important;
+}
+
+#add-to-cart-form {
+padding-bottom: 30px;
+align-items: center;
+}
+
+.col-4 {
+    margin-left: 15%;
+}
+
+.product-quantity {
+width: 70px;
+margin-left: 20px;
+
+}
+
+.product-price {
+padding-left: 20px;
+
+}
+
+.add-cart-btn {
+width: 110px !important;
+font-weight: 500;
+}
+
+.product-container {
+width: 70%;
+}
+
+
