@@ -206,4 +206,33 @@ font-weight: 500;
 width: 70%;
 }
 
+/*CART PAGE*/
+.product-col-6 {
+width: 100% !important;
+}
+
+#checkout-btn {
+margin-left: 78%;
+margin-bottom: 20px;
+margin-top: 10px;
+width: 200px !important;
+margin-top: 15px;
+height: 35px;
+
+}
+
+#product-img {
+margin-right: 30px;
+}
+
+.qty-btn {
+margin-left: 44%;
+}
+
+.title-cart {
+padding-top: 30px;
+padding-bottom: 10px;
+text-align: center;
+}
+
 
