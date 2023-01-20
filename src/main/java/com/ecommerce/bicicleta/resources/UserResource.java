@@ -74,7 +74,11 @@ public class UserResource {
         var orders = user.getOrders();
         boolean noOrders = orders.isEmpty();
         var paidOrders = orderService.paidOrders(user);
-
+        var total = 0.0;
+        for(var order : paidOrders) {
+            total = order.getTotal();
+        }
+        model.addAttribute("totalPaidOrder", total);
         model.addAttribute("paidOrders", paidOrders);
         model.addAttribute("noOrders", noOrders);
         model.addAttribute("user", user);

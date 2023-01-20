@@ -304,3 +304,36 @@ text-align: center;
 padding-bottom: 100px;
 font-style: italic;
 }
+
+.item-profile {
+border: 1px black solid;
+width: 70%;
+margin-left: 15%;
+margin-bottom: 20px;
+}
+
+/*PROFILE PAGE*/
+.profile-product {
+    width: 95%;
+    padding-left: 44%;
+}
+
+.profile-container {
+width: 78%;
+}
+
+.profile-qty {
+margin-top: 10px;
+}
+
+.profile-order {
+border: 1px black solid;
+margin-bottom: 20px;
+padding-bottom: 20px;
+}
+
+.profile-order-p {
+text-align: center;
+}
+
+
