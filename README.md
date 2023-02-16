@@ -22,6 +22,7 @@ Bicicleta is a Spring Boot web application that simulates an ecommerce website, 
 ### Homepage 
 - On the homepage, users can see all the bicycles available to purchase.
 ![Homepage](https://i.ibb.co/0J37F91/homepage.png)
+
 - They can sort the products by price: low to high, and high to low, as well as filter their search by category. 
 ![Category](https://i.ibb.co/n0QFSqg/category-sorted.png)
 ### Add to the Cart
