@@ -13,4 +13,6 @@ public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecific
 
     Order findFirstByUserAndOrderStatus(User user, Integer orderStatus);
     List<Order> findAllByUserEquals(User user);
+
+    List<Order> findByOrderStatus(Integer orderStatus);
 }

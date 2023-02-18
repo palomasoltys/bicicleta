@@ -113,18 +113,36 @@ public class OrderService {
     @Scheduled(cron = "0 0 3 * * *")
     public void removeExpiredItems() {
         Instant now = Instant.now();
-        if(order.getOrderStatus().getCode() == 1){
-            for (Iterator<OrderItem> iterator = order.getItems().iterator(); iterator.hasNext(); ) {
-                OrderItem item = iterator.next();
-                Duration duration = Duration.between(order.getDateCreated(), now);
-                if (duration.toHours() > 24) {
-                    iterator.remove();
+        List<Order> orders = orderRepository.findByOrderStatus(1);
+        if(!orders.isEmpty()){
+            for(int i=0; i<orders.size(); i++) {
+                Order order = orders.get(i);
+                System.out.println("Order found: " + order.getId());
+                for (Iterator<OrderItem> iterator = order.getItems().iterator(); iterator.hasNext(); ) {
+                    OrderItem item = iterator.next();
+                    Duration duration = Duration.between(order.getDateCreated(), now);
+                    if(i == orders.size() - 1 && duration.toHours() > 24) {
+                        order.setUser(null);
+                        orderItemRepository.delete(item);
+                        orderRepository.delete(order);
+                    }
+                    if (duration.toHours() > 24) {
+                        System.out.println("Removing item: " + item.getProduct().getName());
+                        iterator.remove();
+                    }
                 }
             }
-
-            orderRepository.saveAndFlush(order);
+            if (order != null && !order.getItems().isEmpty()) {
+                orderRepository.saveAndFlush(order);
+            } else if (order != null) {
+                orderRepository.delete(order);
+            }
+        } else {
+            System.out.println("No order found or order status is not valid");
         }
     }
+
+
 
     @Transactional
     public List<String> addItemToTheCart(Product product, int quantity, OrderItem cart, User user, Long orderId) {
