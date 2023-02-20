@@ -58,6 +58,7 @@ const handleSubmitRemoveItem = async (e) => {
         const emptyCartDiv = document.createElement("div"); // Create a new div element
         const emptyCartP = document.createElement("p"); // Create a new p element
         emptyCartP.classList.add('empty-cart-p')
+        emptyCartP.classList.add('pb-5')
         const paragraphText = document.createTextNode("Your cart is empty. Let's shop?"); // Create a text node with the paragraph text
 
         emptyCartP.appendChild(paragraphText); // Add the text node to the p element

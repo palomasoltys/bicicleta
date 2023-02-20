@@ -211,6 +211,10 @@ width: 70%;
 width: 100% !important;
 }
 
+.empty-cart-p {
+    text-align: center !important;
+}
+
 #checkout-btn {
 margin-left: 78%;
 margin-bottom: 20px;

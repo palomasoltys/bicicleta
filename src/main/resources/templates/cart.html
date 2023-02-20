@@ -49,7 +49,7 @@
     <div class="container" id="cart-container">
       <h2 class="title-cart">Your Shopping Cart</h2>
       <div th:if="${orderId == 0}" id="empty-cart">
-        <p class="empty-cart-p">Your cart is empty. Let's shop?</p>
+        <p class="empty-cart-p pb-5">Your cart is empty. Let's shop?</p>
       </div>
       <div class="row" id="cart-summary">
         <div th:each="order : ${orders}">
