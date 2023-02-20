@@ -46,12 +46,12 @@
         <a href="/products/category/gravel-bike" class="category">Gravel Bike</a>
         <a href="/products/category/ebike" class="category">E-Bike</a>
       </div>
-    <div class="container">
+    <div class="container" id="cart-container">
       <h2 class="title-cart">Your Shopping Cart</h2>
-      <div th:if="${orderId == 0}">
-        <p>Your cart is empty. Let's shop?</p>
+      <div th:if="${orderId == 0}" id="empty-cart">
+        <p class="empty-cart-p">Your cart is empty. Let's shop?</p>
       </div>
-      <div class="row">
+      <div class="row" id="cart-summary">
         <div th:each="order : ${orders}">
           <p hidden th:text="${order.id}" id="order-id"></p>
           <div th:each="item : ${order.items}">

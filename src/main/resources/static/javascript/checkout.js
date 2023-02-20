@@ -49,6 +49,21 @@ const handleSubmitRemoveItem = async (e) => {
     const responseArr = await response.json()
     console.log(responseArr)
 
+    if(responseArr[0] === "0") {
+    console.log("0 quantity")
+        //remove div
+        document.getElementById('cart-summary').style.display = "none";
+
+        //display: shopping cart is empty
+        const emptyCartDiv = document.createElement("div"); // Create a new div element
+        const emptyCartP = document.createElement("p"); // Create a new p element
+        emptyCartP.classList.add('empty-cart-p')
+        const paragraphText = document.createTextNode("Your cart is empty. Let's shop?"); // Create a text node with the paragraph text
+
+        emptyCartP.appendChild(paragraphText); // Add the text node to the p element
+        emptyCartDiv.appendChild(emptyCartP); // Add the p element to the div element
+        document.getElementById('cart-container').appendChild(emptyCartDiv);
+    }
 
     document.getElementById('item-quantity').innerText = responseArr[0];
     document.getElementById('itemCount').innerText = responseArr[0];
