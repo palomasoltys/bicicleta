@@ -1,9 +1,11 @@
 package com.ecommerce.bicicleta.resources;
 
 
+import com.ecommerce.bicicleta.entities.OrderItem;
 import com.ecommerce.bicicleta.entities.Product;
 import com.ecommerce.bicicleta.entities.User;
 
+import com.ecommerce.bicicleta.repositories.OrderItemRepository;
 import com.ecommerce.bicicleta.services.OrderService;
 import com.ecommerce.bicicleta.services.ProductService;
 import com.ecommerce.bicicleta.services.UserService;
@@ -92,13 +94,20 @@ public class ProductRestController {
     @PostMapping("/cart/update-cart/{orderId}")
     public ResponseEntity<Object> updateCart(@PathVariable String orderId, @RequestBody Map<String, String> obj) {
         String quantity =  obj.get("quantity");
-        String productId = obj.get("productId");
-        Long productIdLong = Long.valueOf(productId);
         var order = orderService.findById(Long.valueOf(orderId));
-        var res = orderService.updateCart(order, productIdLong, quantity);
-
-        System.out.println("ORDER ID UPDATE-CART: "+orderId);
-        return ResponseEntity.ok().body(res);
+        if(!quantity.equals("0")) {
+            String productId = obj.get("productId");
+            Long productIdLong = Long.valueOf(productId);
+            var res = orderService.updateCart(order, productIdLong, quantity);
+            return ResponseEntity.ok().body(res);
+        } else {
+            List<String> emptyRes = new ArrayList<>(List.of("0", "0.0", "0.0"));
+            for(OrderItem item : order.getItems()) {
+                orderService.deleteOrderItem(item);
+            }
+            orderService.deleteOrderByOrderId(Long.valueOf(orderId));
+            return ResponseEntity.ok().body(emptyRes);
+        }
 
     }
 

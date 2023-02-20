@@ -219,4 +219,14 @@ public class OrderService {
         return Collections.emptyList();
     }
 
+    @Transactional
+    public void deleteOrderByOrderId(Long orderId) {
+        orderRepository.deleteById(orderId);
+    }
+
+    @Transactional
+    public void deleteOrderItem(OrderItem item) {
+        orderItemRepository.delete(item);
+    }
+
 }
