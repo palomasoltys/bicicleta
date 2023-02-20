@@ -49,20 +49,21 @@ const handleSubmitRemoveItem = async (e) => {
     const responseArr = await response.json()
     console.log(responseArr)
 
+    //if user deletes product from the cart, display a message about empty cart
     if(responseArr[0] === "0") {
     console.log("0 quantity")
         //remove div
         document.getElementById('cart-summary').style.display = "none";
 
         //display: shopping cart is empty
-        const emptyCartDiv = document.createElement("div"); // Create a new div element
-        const emptyCartP = document.createElement("p"); // Create a new p element
+        const emptyCartDiv = document.createElement("div");
+        const emptyCartP = document.createElement("p");
         emptyCartP.classList.add('empty-cart-p')
         emptyCartP.classList.add('pb-5')
-        const paragraphText = document.createTextNode("Your cart is empty. Let's shop?"); // Create a text node with the paragraph text
+        const paragraphText = document.createTextNode("Your cart is empty. Let's shop?");
 
-        emptyCartP.appendChild(paragraphText); // Add the text node to the p element
-        emptyCartDiv.appendChild(emptyCartP); // Add the p element to the div element
+        emptyCartP.appendChild(paragraphText);
+        emptyCartDiv.appendChild(emptyCartP);
         document.getElementById('cart-container').appendChild(emptyCartDiv);
     }
 
