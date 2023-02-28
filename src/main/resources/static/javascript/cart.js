@@ -1,14 +1,6 @@
 let url = window.location.href;
 let id = url.substring(url.lastIndexOf('/') + 1);
 
-// convert price to $#,###.##
-const priceElement = document.querySelector(".p-price");
-let price = parseFloat(priceElement.innerText);
-const formattedPrice = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(price);
-console.log(formattedPrice)
-priceElement.innerText = formattedPrice;
-
-
 const addToTheCartForm = document.getElementById('add-to-cart-form')
 const productName = document.getElementById('product-name')
 const productDescription = document.getElementById('product-description')
@@ -16,6 +8,14 @@ const productImgUrl = document.getElementById('product-url')
 const productPrice = document.getElementById('product-price')
 const productQtyToTheCart = document.getElementById('product-quantity')
 
+// convert price to $#,###.##
+const priceElement = document.querySelector(".p-price");
+let price = parseFloat(priceElement.innerText);
+const formattedPrice = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(price);
+console.log(formattedPrice)
+priceElement.innerText = formattedPrice;
+
+const slicedPrice = productPrice.innerText.slice(1);
 
 const headers = {
     'Content-Type':'application/json'
@@ -30,17 +30,16 @@ const handleSubmit = async (e) => {
         name: productName.innerText,
         description: productDescription.innerText,
         imgUrl: productImgUrl.src,
-        price: productPrice.innerText
+        price: slicedPrice
     }
+    console.log(bodyObj);
     const response = await fetch(`${baseUrl}/add-to-the-cart/${id}?quantity=${productQtyToTheCart.value}`, {
         method: "POST",
         body: JSON.stringify(bodyObj),
         headers: headers
     })
     console.log(response)
-//        .catch(err => console.error(err.message))
-//    console.log(response)
-//
+
     const responseArr = await response.json()
     console.log(responseArr)
 
