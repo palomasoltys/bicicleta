@@ -15,7 +15,7 @@ Bicicleta is a Spring Boot web application that simulates an ecommerce website, 
 
 ## Features
 
- - 📹 Full video walk-through: Coming Soon
+ - 📹 [Full video walk-through](https://youtu.be/TSQ265ulNDA)
 ### Login and Sign Up
 - Users have the option of creating an account or log in. After login in, they have access to their previous purchases.
 ![Login](https://i.ibb.co/bLMVLhG/login.png)
