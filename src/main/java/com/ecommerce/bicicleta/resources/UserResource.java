@@ -72,8 +72,8 @@ public class UserResource {
             model.addAttribute("cartSize", 0);
         }
         var orders = user.getOrders();
-        boolean noOrders = orders.isEmpty();
         var paidOrders = orderService.paidOrders(user);
+        boolean noOrders = paidOrders.isEmpty();
         var total = 0.0;
         for(var order : paidOrders) {
             total = order.getTotal();
