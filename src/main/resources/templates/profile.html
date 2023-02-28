@@ -50,7 +50,7 @@
         <h1 class="title-cart">Welcome, <span th:text="${user.name}"></span></h1>
       </div>
       <div th:if="${noOrders == true}">
-        <p>You haven't ordered anything yet. Let's start shopping today.</p>
+        <p class="empty-cart-p pb-5">You haven't ordered anything yet. Let's start shopping today.</p>
       </div>
       <div th:each="order : ${paidOrders}">
         <h2 class="title-cart">Your Orders</h2>
