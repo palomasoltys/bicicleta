@@ -56,7 +56,7 @@
         <h2 class="title-cart">Your Orders</h2>
         <div class="profile-order">
           <p class="profile-order-p profile-qty">Order Number: <span th:text="${order.id}"></span></p>
-          <p class="profile-order-p">Date Created: <span th:text="${order.dateCreated}"></span></p>
+          <p class="profile-order-p" id="date-created">Date Created: <span th:text="${order.dateCreated}"></span></p>
           <p class="profile-order-p p-price">Order Status: <span th:text="${order.orderStatus}"></span></p>
           <p class="profile-order-p p-price">Total: $<span th:text="${totalPaidOrder}"></span></p>
           <div th:each="item : ${order.items}" class="item-profile row">
@@ -75,6 +75,6 @@
       </div>
     </div>
   </div>
-
+  <script src="/static/javascript/profile.js" type="application/javascript"></script>
 </body>
 </html>
