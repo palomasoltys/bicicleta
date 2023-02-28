@@ -60,7 +60,7 @@
             <div class="col-6">
               <p th:id="product-name" th:text="${product.name}"></p>
               <p th:text="${product.description}" id="product-description"></p>
-              <p class="p-price product-price">$<span th:text="${product.price}" id="product-price" class="product-price"></span></p>
+              <p class="p-price product-price" th:text="${product.price}" id="product-price"></p>
               <label for="product-quantity" class="product-quantity">Quantity:</label><br>
               <input type="number" id="product-quantity" class="product-quantity" name="quantity" min="1" value="1">
               <button type="submit" class="add-cart-btn btn-login">Add to Cart</button>

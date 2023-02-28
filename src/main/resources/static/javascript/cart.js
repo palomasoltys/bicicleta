@@ -1,6 +1,14 @@
 let url = window.location.href;
 let id = url.substring(url.lastIndexOf('/') + 1);
 
+// convert price to $#,###.##
+const priceElement = document.querySelector(".p-price");
+let price = parseFloat(priceElement.innerText);
+const formattedPrice = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(price);
+console.log(formattedPrice)
+priceElement.innerText = formattedPrice;
+
+
 const addToTheCartForm = document.getElementById('add-to-cart-form')
 const productName = document.getElementById('product-name')
 const productDescription = document.getElementById('product-description')
