@@ -1,10 +1,13 @@
-//let itemQuantity = document.getElementById('item-quantity').innerText;
-//let itemPrice = document.getElementById('item-price').innerText;
-//let itemSubTotal = document.getElementById('item-subtotal').innerText;
-//const productName = document.getElementById('product-name').innerText;
-//const productId = document.getElementById('product-id').innerText;
-//const productDescription = document.getElementById('product-description').innerText;
-//const orderId = document.getElementById('order-id').innerText;
+  const productPrices = document.querySelectorAll(".item-product-price");
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD"
+  });
+  productPrices.forEach(function(price) {
+    price.innerText = formatter.format(parseFloat(price.innerText));
+    console.log(price.innerText)
+  });
+
 
 const baseUrl = 'http://localhost:8080/products/cart'
 
@@ -31,6 +34,11 @@ function updateCart(operator) {
 const handleSubmitRemoveItem = async (e) => {
     let itemPrice = document.getElementById('item-price').innerText;
     const productId = document.getElementById('product-id').innerText;
+
+
+    const slicedPrice = itemPrice.slice(1);
+    const priceFormatted = parseFloat(slicedPrice.replace(",", ""));
+
     let qty = updateCart("-");
     let obj = {
     quantity: qty,

@@ -16,6 +16,7 @@ console.log(formattedPrice)
 priceElement.innerText = formattedPrice;
 
 const slicedPrice = productPrice.innerText.slice(1);
+const priceFormatted = parseFloat(slicedPrice.replace(",", ""));
 
 const headers = {
     'Content-Type':'application/json'
@@ -30,7 +31,7 @@ const handleSubmit = async (e) => {
         name: productName.innerText,
         description: productDescription.innerText,
         imgUrl: productImgUrl.src,
-        price: slicedPrice
+        price: priceFormatted
     }
     console.log(bodyObj);
     const response = await fetch(`${baseUrl}/add-to-the-cart/${id}?quantity=${productQtyToTheCart.value}`, {
