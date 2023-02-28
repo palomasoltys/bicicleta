@@ -32,9 +32,9 @@ function updateCart(operator) {
 }
 
 const handleSubmitRemoveItem = async (e) => {
+
     let itemPrice = document.getElementById('item-price').innerText;
     const productId = document.getElementById('product-id').innerText;
-
 
     const slicedPrice = itemPrice.slice(1);
     const priceFormatted = parseFloat(slicedPrice.replace(",", ""));
@@ -84,6 +84,10 @@ const handleSubmitRemoveItem = async (e) => {
 const handleSubmitAddItem = async (e) => {
     let itemPrice = document.getElementById('item-price').innerText;
     const productId = document.getElementById('product-id').innerText;
+
+    const slicedPrice = itemPrice.slice(1);
+    const priceFormatted = parseFloat(slicedPrice.replace(",", ""));
+
     let qty = updateCart("+");
     let obj = {
     quantity: qty,
@@ -112,54 +116,6 @@ const handleSubmitAddItem = async (e) => {
 
 const checkoutItemsBtn = document.getElementById('checkout-btn');
 
-//checkoutItemsBtn.addEventListener("click", async () => {
-//    console.log("CHECKOUT BUTTON - arrow function ")
-//
-//    const orderId = document.getElementById('order-id').innerText;
-//    const urlBase = "http://localhost:8080/orders/cart"
-//    window.location.href = `${urlBase}/checkout/${orderId}`;
-//
-//    let obj = {
-//    orderId: orderId
-//    }
-//
-// fetch(`${urlBase}/checkout/${orderId}`, {
-//         method: "GET",
-//     }).then(response => response.json())
-//     .then((responseArr) => {
-//         if (window.location.href.indexOf(`${urlBase}/checkout/${orderId}`) > -1) {
-//             console.log(document.getElementById('summary-product-price'));
-//             document.getElementById('summary-product-price').innerText = responseArr[1]
-//             document.getElementById('summary-product-quantity').innerText = responseArr[0];
-//             document.getElementById('summary-product-subtotal').innerText = responseArr[2];
-//             document.getElementById('summary-product-total').innerText = responseArr[3] ;
-//         }
-//         else {
-//             console.log("page didnt load")
-//         }
-//     })
-
-
-//const handleCheckoutItems = async (e) => {
-//    console.log("CHECKOUT BUTTON ")
-////
-//    const orderId = document.getElementById('order-id').innerText;
-//    console.log(orderId)
-//    const response = await fetch(`${baseUrl}/checkout?id=${orderId}`)
-//    .then(response => response.json())
-//    .then(data => {
-//    console.log(data)})
-
-//    document.getElementById('summary-product-price').innerText = document.getElementById('item-price').innerText;;
-//    document.getElementById('summary-product-quantity').innerText = responseArr[0];
-//    document.getElementById('summary-product-subtotal').innerText = responseArr[1];
-//    document.getElementById('summary-product-total').innerText = responseArr[2] ;
-
-//}
-
-
-
-//checkoutItemsBtn.addEventListener("click", handleCheckoutItems);
 if(removeItemBtn != null) {
 removeItemBtn.addEventListener("click", handleSubmitRemoveItem);
 }
