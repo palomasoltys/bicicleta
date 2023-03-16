@@ -78,7 +78,9 @@ const handleSubmitRemoveItem = async (e) => {
     document.getElementById('item-quantity').innerText = responseArr[0];
     document.getElementById('itemCount').innerText = responseArr[0];
     document.getElementById('item-subtotal').innerText = responseArr[1];
-    document.getElementById('order-total').innerText = responseArr[2];
+    const total = parseFloat(responseArr[2])
+    console.log(total)
+    document.getElementById('order-total').innerText = formatter.format(total);
 
 }
 const handleSubmitAddItem = async (e) => {
@@ -110,7 +112,9 @@ const handleSubmitAddItem = async (e) => {
     document.getElementById('item-quantity').innerText = responseArr[0];
     document.getElementById('itemCount').innerText = responseArr[0];
     document.getElementById('item-subtotal').innerText = responseArr[1];
-    document.getElementById('order-total').innerText = responseArr[2];
+    const total = parseFloat(responseArr[2])
+    console.log(total)
+    document.getElementById('order-total').innerText = formatter.format(total);
 
 }
 
