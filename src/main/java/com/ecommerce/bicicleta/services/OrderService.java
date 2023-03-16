@@ -4,6 +4,7 @@ import com.ecommerce.bicicleta.entities.*;
 import com.ecommerce.bicicleta.entities.enums.OrderStatus;
 import com.ecommerce.bicicleta.repositories.*;
 import jakarta.transaction.Transactional;
+import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -85,6 +86,7 @@ public class OrderService {
             Optional<Order> order = orderRepository.findOne(Specification.where(OrderSpecification.hasOrderStatus(OrderStatus.WAITING_PAYMENT)).and(OrderSpecification.hasUser(user)));
             // Add the product and quantity to the existing cart
             OrderItem orderItem = new OrderItem(order.get(),product, quantity,product.getPrice());
+            orderItemRepository.saveAndFlush(orderItem);
             openCart.getItems().add(orderItem);
             orderRepository.saveAndFlush(openCart);
         } else {
