@@ -47,8 +47,8 @@
           <h3>Summary:</h3>
           <div th:each="item : ${orders.items}" class="row">
             <div class="col-9"><p class="p-summary">Quantity: <span th:text="${item.quantity}"></span></p></div>
-            <div class="p-price col-9"><p class="p-summary">Price: $<span th:text="${item.price}"></span></p></div>
-            <div class="p-price col-9"><p class="p-summary">Subtotal: $<span th:text="${item.subTotal}"></span></p></div>
+            <div class="p-price col-9"><p class="p-summary">Price: <span th:text="${item.price}" class="item-product-price"></span></p></div>
+            <div class="p-price col-9"><p class="p-summary">Subtotal: <span th:text="${item.subTotal}" class="item-product-price"></span></p></div>
             <div th:each="product : ${item.product}">
               <div class="col-4"> <img th:src="${product.imgUrl}" class="product-img"></div>
               <div class="col-6 product-col-6">
@@ -58,7 +58,7 @@
             </div>
           </div>
           <div>
-            <div class="p-price">Total : $<span th:text="${orders.total}"></span></div>
+            <div class="p-price">Total : <span th:text="${orders.total}" class="item-product-price"></span></div>
           </div>
           <hr/>
         </div>

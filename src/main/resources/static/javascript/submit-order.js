@@ -7,6 +7,16 @@ const state = document.getElementById('state').value;
 const zipcode = document.getElementById('zipcode').innerText;
 const country = document.getElementById('country').value;
 
+const productPrices = document.querySelectorAll(".item-product-price");
+const formatter = new Intl.NumberFormat("en-US", {
+style: "currency",
+currency: "USD"
+});
+productPrices.forEach(function(price) {
+price.innerText = formatter.format(parseFloat(price.innerText));
+console.log(price.innerText)
+});
+
 const header = {
     'Content-Type':'application/json'
 }
