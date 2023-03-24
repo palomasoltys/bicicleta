@@ -49,22 +49,18 @@ public class OrderResource {
         User user = userService.findById(userId);
         Long orderId = 0L;
         List<Order> ordersInTheCart = new ArrayList<>();
+        Double total = 0.0;
         for(Order order : user.getOrders()){
             if(order.getOrderStatus().getCode() == 1){
-                System.out.println(order.getTotal());
-            System.out.println(order.getDateCreated().toString());
                 ordersInTheCart.add(order);
+                total += order.getTotal();
                 orderId = order.getId();
             }
         }
-        for(Order o : ordersInTheCart) {
-            System.out.println(o.getId());
-            System.out.println(o.getItems());
-        }
-        System.out.println(orderId);
 
         model.addAttribute("orderId", orderId);
         model.addAttribute("user", user);
+        model.addAttribute("orderTotal", total);
         model.addAttribute("orders", ordersInTheCart);
         return "cart";
 
@@ -74,7 +70,6 @@ public class OrderResource {
     public String checkoutOrdersInTheCart(@PathVariable long orderId, Model model) {
         var order = service.findById(orderId);
         var user = order.getUser();
-
         model.addAttribute("user", user);
         if(order.getOrderStatus().getCode() == 1) {
             model.addAttribute("orders", order);

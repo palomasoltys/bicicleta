@@ -67,7 +67,7 @@
                   <p th:text="${item.product.name}" id="product-name"></p>
                   <p th:text="${item.product.description}" id="product-description"></p>
                 <p class="p-price">Price: <span th:text="${item.product.price}" id="item-product-price" class="item-product-price"></span></p>
-                <p class="p-price">Total: <span th:text="${order.total}" id="order-total" class="item-product-price"></span></p>
+                <p class="p-price">Subtotal: <span th:text="${item.subTotal}" id="order-total" class="item-product-price"></span></p>
               </div>
             </div>
             <div class="col-6 product-col-6 qty-btn">
@@ -79,6 +79,9 @@
         </div>
         <div th:if="${user != null}">
           <div th:if="${orderId != 0}">
+            <div>
+              <div class="p-price">Total : <span th:text="${orderTotal}" class="item-product-price"></span></div>
+            </div>
             <div class="col-6">
               <a th:href="@{/orders/cart/checkout/{id}(id=${orderId})}">
                 <button id="checkout-btn" class="add-cart-btn btn-login">Checkout</button>
