@@ -95,19 +95,23 @@ public class ProductRestController {
     public ResponseEntity<Object> updateCart(@PathVariable String orderId, @RequestBody Map<String, String> obj) {
         String quantity =  obj.get("quantity");
         var order = orderService.findById(Long.valueOf(orderId));
-        if(!quantity.equals("0")) {
+//        if(!quantity.equals("0")) {
             String productId = obj.get("productId");
             Long productIdLong = Long.valueOf(productId);
             var res = orderService.updateCart(order, productIdLong, quantity);
-            return ResponseEntity.ok().body(res);
-        } else {
-            List<String> emptyRes = new ArrayList<>(List.of("0", "0.0", "0.0"));
+            System.out.println(res);
+//            return ResponseEntity.ok().body(res);
+          if (quantity.equals("0")) {
+//            List<String> emptyRes = new ArrayList<>(List.of("0", "0.0", "0.0"));
             for(OrderItem item : order.getItems()) {
                 orderService.deleteOrderItem(item);
             }
             orderService.deleteOrderByOrderId(Long.valueOf(orderId));
-            return ResponseEntity.ok().body(emptyRes);
+//            System.out.println(emptyRes);
+//            return ResponseEntity.ok().body(res);
+
         }
+        return ResponseEntity.ok().body(res);
 
     }
 

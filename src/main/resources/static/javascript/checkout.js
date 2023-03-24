@@ -15,18 +15,20 @@ const headers = {
     'Content-Type':'application/json'
 }
 
-const removeItemBtn = document.getElementById('remove-item-btn');
-const addItemBtn = document.getElementById('add-item-btn');
+const removeItemBtn = document.querySelectorAll('.remove-btn');
+const addItemBtn = document.querySelectorAll('.add-btn');
 
 
-function updateCart(operator) {
-    let itemQuantity = document.getElementById('item-quantity').innerText;
+function updateCart(operator, productId) {
+    let itemQuantity = document.getElementById('item-quantity-'+productId).innerText;
+    console.log("item qty BEFORE clicking the + button"+itemQuantity)
 
     if(operator === "+") {
-    itemQuantity++;
-       return itemQuantity
+        itemQuantity++;
+        console.log("item qty AFTER clicking the + button"+itemQuantity)
+        return itemQuantity
     } else if (operator === "-"){
-    itemQuantity--;
+        itemQuantity--;
        return itemQuantity--
     }
 }
@@ -34,12 +36,12 @@ function updateCart(operator) {
 const handleSubmitRemoveItem = async (e) => {
 
     let itemPrice = document.getElementById('item-price').innerText;
-    const productId = document.getElementById('product-id').innerText;
+    productId = e.target.value;
 
     const slicedPrice = itemPrice.slice(1);
     const priceFormatted = parseFloat(slicedPrice.replace(",", ""));
 
-    let qty = updateCart("-");
+    let qty = updateCart("-", productId);
     let obj = {
     quantity: qty,
     price: itemPrice,
@@ -59,9 +61,8 @@ const handleSubmitRemoveItem = async (e) => {
 
     //if user deletes product from the cart, display a message about empty cart
     if(responseArr[0] === "0") {
-    console.log("0 quantity")
         //remove div
-        document.getElementById('cart-summary').style.display = "none";
+        document.getElementById(responseArr[3]).style.display = "none";
 
         //display: shopping cart is empty
         const emptyCartDiv = document.createElement("div");
@@ -75,22 +76,24 @@ const handleSubmitRemoveItem = async (e) => {
         document.getElementById('cart-container').appendChild(emptyCartDiv);
     }
 
-    document.getElementById('item-quantity').innerText = responseArr[0];
-    document.getElementById('itemCount').innerText = responseArr[0];
-    document.getElementById('item-subtotal').innerText = responseArr[1];
+    document.getElementById('item-quantity-'+productId).innerText = responseArr[0];
+    document.getElementById('itemCount-'+productId).innerText = responseArr[0];
+    document.getElementById('item-subtotal-'+productId).innerText = responseArr[1];
     const total = parseFloat(responseArr[2])
     console.log(total)
     document.getElementById('order-total').innerText = formatter.format(total);
 
 }
 const handleSubmitAddItem = async (e) => {
+    productId = e.target.value;
     let itemPrice = document.getElementById('item-price').innerText;
-    const productId = document.getElementById('product-id').innerText;
+    console.log(document.getElementById('product-name').innerText)
+
 
     const slicedPrice = itemPrice.slice(1);
     const priceFormatted = parseFloat(slicedPrice.replace(",", ""));
 
-    let qty = updateCart("+");
+    let qty = updateCart("+", productId);
     let obj = {
     quantity: qty,
     price: itemPrice,
@@ -109,11 +112,10 @@ const handleSubmitAddItem = async (e) => {
     console.log(responseArr)
 
 
-    document.getElementById('item-quantity').innerText = responseArr[0];
-    document.getElementById('itemCount').innerText = responseArr[0];
-    document.getElementById('item-subtotal').innerText = responseArr[1];
-    const total = parseFloat(responseArr[2])
-    console.log(total)
+    document.getElementById('item-quantity-'+productId).innerText = responseArr[0];
+    document.getElementById('itemCount-'+productId).innerText = responseArr[0];
+    document.getElementById('item-subtotal-'+productId).innerText = responseArr[1];
+    const total = parseFloat(responseArr[3])
     document.getElementById('order-total').innerText = formatter.format(total);
 
 }
@@ -121,8 +123,12 @@ const handleSubmitAddItem = async (e) => {
 const checkoutItemsBtn = document.getElementById('checkout-btn');
 
 if(removeItemBtn != null) {
-removeItemBtn.addEventListener("click", handleSubmitRemoveItem);
+removeItemBtn.forEach((button) => {
+    button.addEventListener("click", handleSubmitRemoveItem)})
+
 }
 if(addItemBtn != null) {
-addItemBtn.addEventListener("click", handleSubmitAddItem);
+addItemBtn.forEach((button) => {
+    console.log(button)
+    button.addEventListener("click", handleSubmitAddItem)})
 }

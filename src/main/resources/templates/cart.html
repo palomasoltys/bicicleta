@@ -55,25 +55,27 @@
         <div th:each="order : ${orders}">
           <p hidden th:text="${order.id}" id="order-id"></p>
           <div th:each="item : ${order.items}">
-            <div class="col-9">
-              <p hidden> Quantity: <span th:text="${item.quantity}" id="item-quantity"></span></p>
-              <p hidden class="p-price"> Price: $<span th:text="${item.price}" id="item-price"></span></p>
-              <p hidden class="p-price"> Subtotal: $<span th:text="${item.subTotal}" id="item-subtotal"></span></p>
-            </div>
-            <div th:if="${item.product != null}">
-              <div class="col-4"><img th:src="${item.product.imgUrl}" class="product-img" id="product-img"></div>
-              <div class="col-6 product-col-6">
-                  <p hidden th:text="${item.product.id}" id="product-id"></p>
-                  <p th:text="${item.product.name}" id="product-name"></p>
-                  <p th:text="${item.product.description}" id="product-description"></p>
-                <p class="p-price">Price: <span th:text="${item.product.price}" id="item-product-price" class="item-product-price"></span></p>
-                <p class="p-price">Subtotal: <span th:text="${item.subTotal}" id="order-total" class="item-product-price"></span></p>
+            <div th:id="${item.product.name}">
+              <div class="col-9">
+                <p hidden> Quantity: <span th:text="${item.quantity}" th:id="${'item-quantity-'+item.product.id}"></span></p>
+                <p hidden class="p-price"> Price: $<span th:text="${item.price}" id="item-price"></span></p>
+                <p hidden class="p-price"> Subtotal: $<span th:text="${item.subTotal}" th:id="${'item-subtotal-'+item.product.id}"></span></p>
               </div>
-            </div>
-            <div class="col-6 product-col-6 qty-btn">
-              <button id="remove-item-btn">-</button>
-              <span id="itemCount" th:text="${item.quantity}"></span>
-              <button id="add-item-btn">+</button>
+              <div th:if="${item.product != null}">
+                <div class="col-4"><img th:src="${item.product.imgUrl}" class="product-img" id="product-img"></div>
+                <div class="col-6 product-col-6">
+                    <p hidden th:text="${item.product.id}" id="product-id" class="product-id"></p>
+                    <p th:text="${item.product.name}" id="product-name"></p>
+                    <p th:text="${item.product.description}" id="product-description"></p>
+                  <p class="p-price">Price: <span th:text="${item.product.price}" id="item-product-price" class="item-product-price"></span></p>
+                  <p class="p-price">Subtotal: <span th:text="${item.subTotal}" id="order-total" class="item-product-price"></span></p>
+                </div>
+              </div>
+              <div class="col-6 product-col-6 qty-btn">
+                <button th:id="${'remove-item-btn-' + item.product.id}" th:value="${item.product.id}" class="remove-btn">-</button>
+                <span th:id="${'itemCount-'+item.product.id}" th:text="${item.quantity}"></span>
+                <button th:id="${'add-item-btn-' + item.product.id}" th:value="${item.product.id}" class="add-btn">+</button>
+              </div>
             </div>
           </div>
         </div>

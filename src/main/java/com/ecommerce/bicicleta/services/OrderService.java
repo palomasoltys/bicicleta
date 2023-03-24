@@ -204,6 +204,7 @@ public class OrderService {
                 System.out.println("QUANTITY SET QUANTITY: "+item.getQuantity().toString());
                 response.add(item.getQuantity().toString());
                 response.add(item.getSubTotal().toString());
+                response.add(item.getProduct().getName());
                 orderItemRepository.saveAndFlush(item);
             }
         }
