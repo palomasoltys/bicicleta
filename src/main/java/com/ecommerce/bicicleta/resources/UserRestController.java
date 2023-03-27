@@ -22,9 +22,6 @@ public class UserRestController {
     @Autowired
     private UserService service;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @PostMapping("/login-form")
     public ResponseEntity<List<String>> userLogin(@RequestBody UserDto userDto, HttpServletResponse httpResponse, HttpSession session){
 
