@@ -4,7 +4,6 @@ import com.ecommerce.bicicleta.entities.*;
 import com.ecommerce.bicicleta.entities.enums.OrderStatus;
 import com.ecommerce.bicicleta.repositories.*;
 import jakarta.transaction.Transactional;
-import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Scheduled;
