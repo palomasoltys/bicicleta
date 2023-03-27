@@ -27,7 +27,7 @@ class UserServiceTest {
     private UserService userService;
 
     @Test
-    void userLogin() {
+    void correctUserLogin() {
         //Set up data
         User user = new User(1L, "test@test.com", "password", "test");
         UserDto userDto = new UserDto(user);
@@ -42,5 +42,19 @@ class UserServiceTest {
         assertThat(loginResponse.isSuccessful()).isTrue();
         assertThat(loginResponse.getResponse()).containsExactly("http://localhost:8080/", "1");
 
+    }
+
+    @Test
+    void incorrectUserLogin() {
+        //Set up data
+        User user = new User(1L, "test@test.com", "password", "test");
+        UserDto userDto = new UserDto(user);
+
+        when(userRepository.findByEmail(userDto.getEmail())).thenReturn(Optional.empty());
+
+        LoginResponse loginResponse = userService.userLogin(userDto);
+
+        assertThat(loginResponse.isSuccessful()).isFalse();
+        assertThat(loginResponse.getResponse()).containsExactly("Email or password incorrect");
     }
 }
